@@ -2,7 +2,7 @@
 以酷狗音乐播放器的用户界面为原型，一个基于Java Sound,实现播放、搜索、下载歌曲的音乐播放器。
 此音乐播放器支持音乐格式较少，只有MID、WMA、MP3。最后，为音乐播放器置入一些自己和同学写的游戏，增强了一点娱乐性。
 
-![image](http://git.oschina.net/JHuZhang/HubPlayer/HubPlayer.jpg)
+![image](http://git.oschina.net/JHuZhang/HubPlayer/master/HubPlayer.jpg)
 
 ##功能说明
 程序启动时，会在E盘创建一个Hub文件夹，Hub/SongLibrary.dat保存了播放器抓取到的歌曲数据，Hub/download保存了下载的歌曲。
