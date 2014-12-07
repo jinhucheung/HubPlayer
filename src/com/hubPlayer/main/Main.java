@@ -12,7 +12,7 @@ import org.jvnet.substance.SubstanceLookAndFeel;
 import com.hubPlayer.ui.HubFrame;
 
 /**
- * 以kugou音乐播放器为布局原型，编写一个实现播放、搜索歌曲的播放器
+ * 以酷狗音乐播放器的用户界面为原型，制作的一个基于Java Sound，实现播放、搜索、下载的音乐播放器，支持的音乐格式只有WAV、MP3、MID。
  *
  */
 
