@@ -209,6 +209,7 @@ public class HubFrame extends JFrame {
 
 				inputStream.close();
 			} catch (IOException | ClassNotFoundException e) {
+				songLibrary = new SongLibraryMap<String, List<SongInfos>>();
 				e.printStackTrace();
 			}
 		}

@@ -42,17 +42,21 @@ public class LibraryTableModel extends DefaultTableModel {
 	private LibraryOperation libraryOperation;
 
 	public LibraryTableModel() {
-		
+
 		super(initData, title);
 
 	}
 
-	public void initTableData() {
-		// 清除表格数据
+	public void deleteTableData() {
+
+		// 通知表格，数据要改变
+		 fireTableDataChanged();
+		// 清除表格行
 		for (int i = getRowCount() - 1; i >= 0; i--) {
 			removeRow(i);
-			
 		}
+		// 清除表格数据
+		getDataVector().clear();
 
 	}
 

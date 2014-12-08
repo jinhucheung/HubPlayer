@@ -2,6 +2,7 @@ package com.hubPlayer.song;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,7 +45,8 @@ public class LrcInfos {
 	public void read(File file) {
 
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					new FileInputStream(file), "utf-8"));
 
 			String line = "";
 

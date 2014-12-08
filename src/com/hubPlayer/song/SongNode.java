@@ -117,9 +117,11 @@ public class SongNode extends DefaultMutableTreeNode {
 
 	@Override
 	public String toString() {
-		if (songName.endsWith(".mp3"))
-			return songName;
-		return songName + ".mp3";
+		if (HTTPFlag)
+			return songName + ".mp3";
+
+		return song.getName();
+
 	}
 
 	public boolean equals(Object object) {

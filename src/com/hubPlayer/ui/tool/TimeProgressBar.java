@@ -73,7 +73,7 @@ public class TimeProgressBar extends JProgressBar {
 
 		currentTimeCountLabel.setText("0:00");
 		this.setValue(0);
-
+		
 		textArea.setText("\n");
 
 	}

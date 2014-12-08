@@ -261,7 +261,8 @@ public class SearchPanel extends JPanel {
 		libraryPanel.getDataTable().selectAll();
 
 		// 表格数据清空
-		libraryTableModel.initTableData();
+		libraryTableModel.deleteTableData();
+	
 
 		List<SongInfos> songList = songLibraryMap.get(key);
 		int addSongNum = songList.size();
@@ -282,6 +283,7 @@ public class SearchPanel extends JPanel {
 
 	// 搜索过程
 	private void searchForMoreSearch(String key, int page) {
+
 		searchSong.setPage(page);
 
 		List<SongInfos> songList = songLibraryMap.get(key);
