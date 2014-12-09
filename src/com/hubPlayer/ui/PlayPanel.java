@@ -381,7 +381,7 @@ public class PlayPanel extends JPanel {
 
 	public void setButtonsAction() {
 
-		// play button
+		// 播放 按钮
 		play.addActionListener(event -> {
 
 			if (player.getLoadSongName() == null) {
@@ -389,7 +389,7 @@ public class PlayPanel extends JPanel {
 			}
 
 			// 在第一次播放时 为了不进入下面一个if判断
-			// 如果CurrentSong==null时，则进入，终止当前歌曲播放，可是当前播放线程还没有实例 报异常
+			// 如果PlayingSongName==null时，则进入，终止当前歌曲播放，可是当前播放线程还没有实例 报异常
 			if (player.getPlayingSongName() == null) {
 				player.setPlayingSongName(player.getLoadSongName());
 			}
@@ -416,10 +416,12 @@ public class PlayPanel extends JPanel {
 					play.setToolTipText("暂停");
 					return;
 				}
-				// 进度条的控制
+				
+				// 进度条的控制 不阻塞
 				timerProgressBar.setTimerControl(false);
 				// 播放歌曲
 				player.open();
+				
 				// 声音控制
 				voiceAdjust.setValue(suitableVoice);
 				songName.setText(player.getPlayingSongName());
@@ -442,7 +444,7 @@ public class PlayPanel extends JPanel {
 			parentFrame.setVisible(true);
 		});
 
-		// backPlay button
+		//前一首按钮
 		backPlay.addActionListener(event -> {
 
 			if (player.getLoadSongName() == null) {
@@ -455,7 +457,7 @@ public class PlayPanel extends JPanel {
 
 		});
 
-		// frontPlay button
+		// 后一首按钮
 		frontPlay.addActionListener(event -> {
 
 			if (player.getLoadSongName() == null) {
@@ -468,7 +470,7 @@ public class PlayPanel extends JPanel {
 
 		});
 
-		// voiceControl button
+		//声音控制按钮
 		voiceControl.addActionListener(event -> {
 
 			if (!player.IsPause) {
@@ -483,8 +485,7 @@ public class PlayPanel extends JPanel {
 
 		});
 
-		// download button
-		// 这里存在错误 当list获取焦点后 再添加歌曲 出错
+		// 下载歌曲按钮
 		download.addActionListener(event -> {
 
 			// 无载入歌时
@@ -510,8 +511,7 @@ public class PlayPanel extends JPanel {
 
 		});
 
-		// mark button
-		// 这里存在错误 当list获取焦点后 再添加歌曲 出错
+		// 标记按钮
 		mark.addActionListener(event -> {
 
 			if (player.getLoadSongName() == null) {
@@ -568,7 +568,7 @@ public class PlayPanel extends JPanel {
 						byte[] buff = new byte[1024];
 						int onceRead = 0;
 						while ((onceRead = inputStream.read(buff, 0,
-								buff.length)) > 0) {
+								buff.length))!=-1) {
 							outputStream.write(buff, 0, onceRead);
 						}
 
@@ -665,6 +665,7 @@ public class PlayPanel extends JPanel {
 	private JFrame parentFrame;
 
 	private HigherPlayer player;
+	
 	// 由FloatControl.Type.MASTER_GAIN得到的数据
 	private final int minVoice = -80;
 	private final int maxVoice = 6;

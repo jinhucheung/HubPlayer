@@ -39,8 +39,6 @@ public class LibraryOperation {
 
 	private final static String savePath = "E:/Hub/download";
 
-
-
 	public void setListTree(JTree[] trees) {
 		this.trees = trees;
 	}
@@ -105,7 +103,7 @@ public class LibraryOperation {
 
 				// 选中默认播放列表
 				trees[0].setSelectionRow(0);
-				
+
 				addTreeList(trees[0], 0);
 
 				player.setSelectTreeNodeInCurrentList(songNode, dataURL);
@@ -152,7 +150,7 @@ public class LibraryOperation {
 						byte[] buff = new byte[1024];
 						int onceRead = 0;
 						while ((onceRead = inputStream.read(buff, 0,
-								buff.length)) > 0) {
+								buff.length)) != -1) {
 							outputStream.write(buff, 0, onceRead);
 						}
 

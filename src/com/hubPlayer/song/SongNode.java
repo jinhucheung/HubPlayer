@@ -125,6 +125,7 @@ public class SongNode extends DefaultMutableTreeNode {
 	}
 
 	public boolean equals(Object object) {
+		
 		if (this == object)
 			return true;
 		if (object == null)

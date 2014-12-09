@@ -88,8 +88,7 @@ public class SearchSong {
 			// 打开链接,获取HTML文 档
 			// 功能用URLConnection一样,下面被注释了的代码
 			Document document = Jsoup.connect(searchUrl).get();
-			//
-
+		
 			parseHtml(document);
 
 			// // 打开连接
@@ -259,7 +258,6 @@ public class SearchSong {
 			songInfos.setSinger(singer);
 			songInfos.setAlbum(album);
 			songInfos.setLrcUrl(lrcUrl);
-			// songInfos.setSongDataUrl(dataUrl);
 
 			// System.out.println("--------A song item--------");
 			// System.out.println("song: " + songName + " singer: " + singer
@@ -286,7 +284,7 @@ public class SearchSong {
 	 * 由于受百度音乐改版的影响,这里不直接去获取歌曲资源地址和文件总字节数 百度音乐用了登陆和JS加密这个地址
 	 * 我们用百度音乐盒http://box.zhangmen.baidu.com/的xml文件间接获取
 	 * 
-	 * 此方法已经不能使用 该xml要设置成授权访问
+	 * 
 	 */
 
 	private void searchDataURL(SongInfos songInfos, String singer, String song) {

@@ -149,7 +149,7 @@ public class SongListPanel extends JScrollPane {
 			String listName = JOptionPane.showInputDialog(this, "请输入新建列表的名称",
 					null, JOptionPane.DEFAULT_OPTION);
 
-			if (listName == null)
+			if (listName == null || listName.length() == 0)
 				return;
 
 			addList(listName);
@@ -185,34 +185,35 @@ public class SongListPanel extends JScrollPane {
 					// 改模录含有歌曲 询问是否移除
 					else if (JOptionPane
 							.showConfirmDialog(this, "列表内包含歌曲,是否删除?", null,
-									JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-						;
+									JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
-					// 终止当前歌曲播放
-					TreeNode playedSong = higherPlayer.getPlayingSong();
-					if (playedSong != null && node.getIndex(playedSong) != -1
-							&& playedSong != null) {
+						// 终止当前歌曲播放
+						TreeNode playedSong = higherPlayer.getPlayingSong();
+						if (playedSong != null
+								&& node.getIndex(playedSong) != -1
+								&& playedSong != null) {
 
-						higherPlayer.end();
+							higherPlayer.end();
 
-						// 触发下播放按钮 使它处于待播放状态
-						higherPlayer.IsPause = false;
-						higherPlayer.getPlayButton().doClick();
-						higherPlayer.getSongNameLabel().setText("");
+							// 触发下播放按钮 使它处于待播放状态
+							higherPlayer.IsPause = false;
+							higherPlayer.getPlayButton().doClick();
+							higherPlayer.getSongNameLabel().setText("");
+						}
+
+						// 清空集合中的歌曲
+						Enumeration<SongNode> e = node.children();
+						while (e.hasMoreElements()) {
+							songlist.remove(e.nextElement());
+						}
+
+						if (songlist.isEmpty()) {
+							addLrcFile.setEnabled(false);
+							addLrcFloder.setEnabled(false);
+						}
+
+						node.removeFromParent();
 					}
-
-					// 清空集合中的歌曲
-					Enumeration<SongNode> e = node.children();
-					while (e.hasMoreElements()) {
-						songlist.remove(e.nextElement());
-					}
-
-					if (songlist.isEmpty()) {
-						addLrcFile.setEnabled(false);
-						addLrcFloder.setEnabled(false);
-					}
-
-					node.removeFromParent();
 					tree.updateUI();
 				});
 
@@ -406,6 +407,8 @@ public class SongListPanel extends JScrollPane {
 					addLrcs(files);
 				});
 
+		
+		
 		tree.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -414,7 +417,7 @@ public class SongListPanel extends JScrollPane {
 				// 右击选中歌曲
 				if (e.getButton() == MouseEvent.BUTTON3) {
 
-					// 获得一个最接近击点的节点路径
+					// 获得一个最接近点击点的节点路径
 					TreePath path = tree.getPathForLocation(e.getX(), e.getY());
 
 					if (path != null)
@@ -427,32 +430,29 @@ public class SongListPanel extends JScrollPane {
 			public void mouseClicked(MouseEvent e) {
 
 				// 鼠标左击两次 播放歌曲
-				if (e.getButton() == MouseEvent.BUTTON1) {
+				if (e.getButton() == MouseEvent.BUTTON1
+						&& e.getClickCount() == 2) {
 
-					if (e.getClickCount() == 2) {
-						TreePath path = tree.getSelectionPath();
+					TreePath path = tree.getSelectionPath();
 
-						// 该选中节点是否为歌曲
-						if (path != null && path.getPathCount() == 3) {
+					// 该选中节点是否为歌曲
+					if (path != null && path.getPathCount() == 3) {
 
-							SongNode songNode = (SongNode) path
-									.getLastPathComponent();
+						SongNode songNode = (SongNode) path
+								.getLastPathComponent();
 
-							if (higherPlayer.getJTree() == null
-									|| !tree.equals(higherPlayer.getJTree())) {
-								higherPlayer.setJTree(tree);
-							}
-
-							// 如果此歌曲节点是网络资源,则载入其URL
-							if (songNode.getHTTPFlag())
-								higherPlayer.load(songNode,
-										songNode.getDataURL());
-							else
-								higherPlayer.load(songNode);
-
-							higherPlayer.getPlayButton().doClick();
-
+						if (!tree.equals(higherPlayer.getJTree())) {
+							higherPlayer.setJTree(tree);
 						}
+
+						// 如果此歌曲节点是网络资源,则载入其URL
+						if (songNode.getHTTPFlag())
+							higherPlayer.load(songNode, songNode.getDataURL());
+						else
+							higherPlayer.load(songNode);
+
+						higherPlayer.getPlayButton().doClick();
+
 					}
 				}
 			}
@@ -504,9 +504,11 @@ public class SongListPanel extends JScrollPane {
 			SongNode node = new SongNode(f);
 
 			// 如果当前列表存在此首歌,count不等于0,则不加入当前列表
+			// songList存放了所有歌曲列表中的歌曲
 			long count = songlist.stream()
 					.filter(each -> parent.equals(each.getParent()))
 					.filter(each -> each.equals(node)).count();
+
 			// 不用判断 if(parent.isNodeChild(node))
 			// 因为前面new了一个节点,同时TreeNode没调用它子节点的equals判断
 			if (count != 0)
