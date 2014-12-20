@@ -20,7 +20,7 @@ import org.jsoup.select.Elements;
 import com.hubPlayer.song.SongInfos;
 
 /**
- * ÀûÓÃJSoup½âÎö°Ù¶ÈÒôÀÖ ´ÓÖĞµÃµ½ËÑË÷µÄ¸èÇúĞÅÏ¢(SongInfos)
+ * åˆ©ç”¨JSoupè§£æç™¾åº¦éŸ³ä¹ ä»ä¸­å¾—åˆ°æœç´¢çš„æ­Œæ›²ä¿¡æ¯(SongInfos)
  *
  * @date 2014-11-06
  */
@@ -28,17 +28,17 @@ import com.hubPlayer.song.SongInfos;
 public class SearchSong {
 
 	// http://music.baidu.com/search/song?s=1&key=key&start=00&size=20
-	// ÉÏÃæÊÇ°Ù¶ÈÒôÀÖËÑË÷µØÖ·ĞÎÊ½, keyÊÇ¹Ø¼ü×Ö,startÊÇÒÔ¿âÖĞµÄµÚ¼¸Ìõ¸èÇú¿ªÊ¼,sizeÎªÒ³ÃæÏÔÊ¾µÄ¸èÇúÊıÄ¿(×î´óÎª20)
+	// ä¸Šé¢æ˜¯ç™¾åº¦éŸ³ä¹æœç´¢åœ°å€å½¢å¼, keyæ˜¯å…³é”®å­—,startæ˜¯ä»¥åº“ä¸­çš„ç¬¬å‡ æ¡æ­Œæ›²å¼€å§‹,sizeä¸ºé¡µé¢æ˜¾ç¤ºçš„æ­Œæ›²æ•°ç›®(æœ€å¤§ä¸º20)
 
-	// ËÑË÷µØÖ·¼°ÍøÒ³±àÂë¼¯ °Ù¶ÈÒôÀÖÊÇÒÔutf-8±àÂë
+	// æœç´¢åœ°å€åŠç½‘é¡µç¼–ç é›† ç™¾åº¦éŸ³ä¹æ˜¯ä»¥utf-8ç¼–ç 
 	private static final String baseUrl = "http://music.baidu.com";
 	private String encode = "utf-8";
 
-	// ¸èÇú¼¯ºÏ
+	// æ­Œæ›²é›†åˆ
 	private Map<String, List<SongInfos>> songLibraryMap;
 	private int songNumber;
 
-	// ÓëËÑË÷ºÍÕ¹Ê¾Ãæ°å½»»¥
+	// ä¸æœç´¢å’Œå±•ç¤ºé¢æ¿äº¤äº’
 	private String key;
 	private int start;
 	private int page;
@@ -48,9 +48,9 @@ public class SearchSong {
 	public SearchSong() {
 		// songLibraryMap = new HashMap<String, List<SongInfos>>();
 
-		// µÚÒ»Ò³
+		// ç¬¬ä¸€é¡µ
 		page = 1;
-		// µÚÒ»Ê×¸èĞòºÅ
+		// ç¬¬ä¸€é¦–æ­Œåºå·
 		start = 0;
 
 		
@@ -58,22 +58,22 @@ public class SearchSong {
 	}
 
 	/**
-	 * ´ò¿ªËÑË÷µØÖ·£¬»ñÈ¡HTML
+	 * æ‰“å¼€æœç´¢åœ°å€ï¼Œè·å–HTML
 	 */
 	public boolean openConnection() {
 		if (key == null)
 			return false;
 
-		// Æ´½ÓËÑË÷µØÖ·
+		// æ‹¼æ¥æœç´¢åœ°å€
 		String searchUrl = "";
-		if ("°Ù¶ÈÒôÀÖĞÂ¸è°ñ/ÔÂ°ñ".equals(key)) {
-			// °Ù¶ÈÒôÀÖĞÂ¸è°ñ/ÔÂ°ñµØÖ·
+		if ("ç™¾åº¦éŸ³ä¹æ–°æ­Œæ¦œ/æœˆæ¦œ".equals(key)) {
+			// ç™¾åº¦éŸ³ä¹æ–°æ­Œæ¦œ/æœˆæ¦œåœ°å€
 			searchUrl = "http://music.baidu.com/top/new/month/";
 
 		} else {
 
 			String keyEncode = "";
-			// ½«key¹Ø¼ü×Ö×ª³ÉURL±àÂë
+			// å°†keyå…³é”®å­—è½¬æˆURLç¼–ç 
 			try {
 				keyEncode = URLEncoder.encode(key, encode);
 			} catch (UnsupportedEncodingException e1) {
@@ -85,21 +85,21 @@ public class SearchSong {
 		}
 
 		try {
-			// ´ò¿ªÁ´½Ó,»ñÈ¡HTMLÎÄ µµ
-			// ¹¦ÄÜÓÃURLConnectionÒ»Ñù,ÏÂÃæ±»×¢ÊÍÁËµÄ´úÂë
+			// æ‰“å¼€é“¾æ¥,è·å–HTMLæ–‡ æ¡£
+			// åŠŸèƒ½ç”¨URLConnectionä¸€æ ·,ä¸‹é¢è¢«æ³¨é‡Šäº†çš„ä»£ç 
 			Document document = Jsoup.connect(searchUrl).get();
 		
 			parseHtml(document);
 
-			// // ´ò¿ªÁ¬½Ó
+			// // æ‰“å¼€è¿æ¥
 			// URLConnection connection = new URL(searchUrl).openConnection();
 			//
 			//
-			// // ´ò¿ªÊäÈëÁ÷
+			// // æ‰“å¼€è¾“å…¥æµ
 			// BufferedReader reader = new BufferedReader(new InputStreamReader(
 			// connection.getInputStream(), encode));
 			//
-			// // »ñÈ¡HTML
+			// // è·å–HTML
 			// StringBuffer stringbuffer = new StringBuffer();
 			// String line;
 			// while ((line = reader.readLine()) != null) {
@@ -108,7 +108,7 @@ public class SearchSong {
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "ÍøÂçÁ¬½Ó³¬Ê±", "",
+			JOptionPane.showMessageDialog(null, "ç½‘ç»œè¿æ¥è¶…æ—¶", "",
 					JOptionPane.PLAIN_MESSAGE);
 			return false;
 		}
@@ -116,15 +116,15 @@ public class SearchSong {
 	}
 
 	/**
-	 * ½âÎöHTML »ñÈ¡ĞÅÏ¢:¸èÇú¡¢¸èÊÖ¡¢×¨¼­Ãû¼°¸èÇúËùÔÚµÄµØÖ·
+	 * è§£æHTML è·å–ä¿¡æ¯:æ­Œæ›²ã€æ­Œæ‰‹ã€ä¸“è¾‘ååŠæ­Œæ›²æ‰€åœ¨çš„åœ°å€
 	 * 
 	 * @param document
-	 *            HTMLÎÄµµ
+	 *            HTMLæ–‡æ¡£
 	 */
 	private void parseHtml(Document document) {
-		// »ñÈ¡HTMLÖĞµÄ¸èÇúÁĞ±íÇøÓò¿é
+		// è·å–HTMLä¸­çš„æ­Œæ›²åˆ—è¡¨åŒºåŸŸå—
 
-		// »ñÈ¡ËÑË÷¸èÇúÊıÄ¿
+		// è·å–æœç´¢æ­Œæ›²æ•°ç›®
 		songNumber = 20;
 		Element e = document.select("span[class=number]").first();
 		if (e != null) {
@@ -132,30 +132,30 @@ public class SearchSong {
 			songNumber = Integer.parseInt(number);
 		}
 
-		// Ã¿¸ö¸èÇúµÄÇøÓò¿é
+		// æ¯ä¸ªæ­Œæ›²çš„åŒºåŸŸå—
 		Elements songDiv = null;
-		// ĞÂ¸è°ñ µÄ¹Ø¼ü×Ö²»Ò»Ñù
-		if ("°Ù¶ÈÒôÀÖĞÂ¸è°ñ/ÔÂ°ñ".equals(key))
+		// æ–°æ­Œæ¦œ çš„å…³é”®å­—ä¸ä¸€æ ·
+		if ("ç™¾åº¦éŸ³ä¹æ–°æ­Œæ¦œ/æœˆæ¦œ".equals(key))
 			songDiv = document.select("div[class=song-item]");
 		else
-			songDiv = document.select("div[class=song-item clearfix");
+			songDiv = document.select("div[class^=song-item clearfix]");
 
 		List<SongInfos> temporaryList = new Vector<SongInfos>();
-		// ±éÀúÃ¿¸ö¸èÇú¿é
+		// éå†æ¯ä¸ªæ­Œæ›²å—
 		for (Element aSongNode : songDiv) {
-			// Ñ¡ÔñclassµÈÓÚÒÔsong-title¿ªÍ·µÄspan±êÇ©
-			Element songTitle = aSongNode.select("span[class^=song-title")
+			// é€‰æ‹©classç­‰äºä»¥song-titleå¼€å¤´çš„spanæ ‡ç­¾
+			Element songTitle = aSongNode.select("span[class^=song-title]")
 					.first().select("a[href^=/song]").first();
 			if (songTitle == null)
 				continue;
 
-			// »ñÈ¡¸èÇúËùÔÚµÄ¾ø¶ÔµØÖ·
+			// è·å–æ­Œæ›²æ‰€åœ¨çš„ç»å¯¹åœ°å€
 			String songUrl = songTitle.attr("abs:href");
 
-			// »ñÈ¡¸èÇúÃû
+			// è·å–æ­Œæ›²å
 			String songName = songTitle.text();
 
-			// ËÑË÷ÁĞ±í±£´æ¸èÇúĞÅÏ¢
+			// æœç´¢åˆ—è¡¨ä¿å­˜æ­Œæ›²ä¿¡æ¯
 			temporaryList.add(getSongInfos(songName, songUrl));
 		}
 
@@ -165,87 +165,87 @@ public class SearchSong {
 			songLibraryMap.get(key).addAll(temporaryList);
 	}
 
-	// Éî¶ÈÅÀÈ¡¸èÇúĞÅÏ¢
+	// æ·±åº¦çˆ¬å–æ­Œæ›²ä¿¡æ¯
 	private SongInfos getSongInfos(String songName, String songUrl) {
 
 		SongInfos songInfos = new SongInfos(songName);
 
 		try {
-			// ´ò¿ª¸èÇúÁ´½Ó,»ñÈ¡ÆäHTML´úÂë
+			// æ‰“å¼€æ­Œæ›²é“¾æ¥,è·å–å…¶HTMLä»£ç 
 			Document document = Jsoup.connect(songUrl).get();
 
-			// ¸èÇú×ÊÔ´µØÖ·
-			// ¸ñÊ½ http://music.baidu.com/song/7319923
+			// æ­Œæ›²èµ„æºåœ°å€
+			// æ ¼å¼ http://music.baidu.com/song/7319923
 			// String songID = songUrl.substring(28, songUrl.length());
 			// String dataUrl =
 			// "http://music.baidu.com/data/music/file?link=&song_id="
 			// + songID;
 
-			// ¸èÊÖÃû
+			// æ­Œæ‰‹å
 			String singer = "";
 			Element SingerElement = document.select("span[class^=author_list]")
 					.first();
 			if (SingerElement != null) {
 				singer = SingerElement.text();
 
-				// Èç¹û¸èÊÖÃû¸ñÊ½ĞÎÈç"x1/x2"Ôò×ª³É"x1¡¢x2"
+				// å¦‚æœæ­Œæ‰‹åæ ¼å¼å½¢å¦‚"x1/x2"åˆ™è½¬æˆ"x1ã€x2"
 				if (singer.contains("/")) {
 					String[] singers = singer.split("/");
 					singer = "";
 					for (String s : singers) {
-						singer = singer + "¡¢" + s;
+						singer = singer + "ã€" + s;
 					}
 					singer = singer.substring(1);
 				}
 			}
 
-			// »ñÈ¡×¨¼­ĞÅÏ¢ ¸ñÊ½-ËùÊô×¨¼­£ºalbum
+			// è·å–ä¸“è¾‘ä¿¡æ¯ æ ¼å¼-æ‰€å±ä¸“è¾‘ï¼šalbum
 			String album = "";
 			Element albumElement = document.select("li[class^=clearfix]")
 					.first();
 			if (albumElement != null)
 				album = albumElement.text();
-			// È¥³ı"ËùÊô×¨¼­£º"
+			// å»é™¤"æ‰€å±ä¸“è¾‘ï¼š"
 			if (album.length() >= 5)
 				album = album.substring(5);
 
 			searchDataURL(songInfos, singer, songName);
 
-			// °Ù¶ÈÒôÀÖ¸Ä°æ ´Ë½ÚµãÒÑ¾­ÕÒ²»µ½
-			// »ñÈ¡ÆäÏÂÔØÁ´½Ó,ÔÚÏÂÔØÒ³Ãæ»ñÈ¡²»µ½Õâ¸öµØÖ·
+			// ç™¾åº¦éŸ³ä¹æ”¹ç‰ˆ æ­¤èŠ‚ç‚¹å·²ç»æ‰¾ä¸åˆ°
+			// è·å–å…¶ä¸‹è½½é“¾æ¥,åœ¨ä¸‹è½½é¡µé¢è·å–ä¸åˆ°è¿™ä¸ªåœ°å€
 			// String downloadUrl = "";
 			// Element downloadElement = document.select("a[data_url]").first();
 			// if (downloadElement != null)
 			// downloadUrl = downloadElement.attr("data_url");
 
 			// if (!flag) {
-			// findDataUrl("³ÂŞÈÑ¸", "¿à¹Ï");
+			// findDataUrl("é™ˆå¥•è¿…", "è‹¦ç“œ");
 			// flag = true;
 			// }
 
-			// °Ù¶ÈÒôÀÖ¸Ä°æ ´Ë½ÚµãÒÑ¾­ÕÒ²»µ½
-			// // »ñÈ¡¸èÇúÎÄ¼ş³¤¶È
+			// ç™¾åº¦éŸ³ä¹æ”¹ç‰ˆ æ­¤èŠ‚ç‚¹å·²ç»æ‰¾ä¸åˆ°
+			// // è·å–æ­Œæ›²æ–‡ä»¶é•¿åº¦
 			// int dataSize = 0;
-			// // ²¥·ÅÊ±³¤
+			// // æ’­æ”¾æ—¶é•¿
 			// int totalTime = 0;
 			//
 			// Element dataSizeElement =
 			// document.select("a[data_size]").first();
 			// if (dataSizeElement != null) {
-			// // ´ó¸ÅµÄÊ±¼ä
+			// // å¤§æ¦‚çš„æ—¶é—´
 			// String size = dataSizeElement.attr("data_size");
 			// dataSize = Integer.parseInt(size);
 			// totalTime = dataSize * 8 / songInfos.getBitRate();
 			// }
 
-			// »ñÈ¡¸è´ÊÎÄ¼şµØÖ·
+			// è·å–æ­Œè¯æ–‡ä»¶åœ°å€
 			String lrcUrl = "";
 			Element lrcUrlElement = document.select("a[data-lyricdata]")
 					.first();
 			if (lrcUrlElement != null) {
 				lrcUrl = lrcUrlElement.attr("data-lyricdata");
 
-				// ÕıÔòÆ¥Åä
+				// æ­£åˆ™åŒ¹é…
 				Pattern pattern = Pattern.compile("(/.*\\.lrc)");
 				Matcher matcher = pattern.matcher(lrcUrl);
 				if (matcher.find())
@@ -254,7 +254,7 @@ public class SearchSong {
 					lrcUrl = "";
 			}
 
-			// ±£´æ¸èÇúĞÅÏ¢
+			// ä¿å­˜æ­Œæ›²ä¿¡æ¯
 			songInfos.setSinger(singer);
 			songInfos.setAlbum(album);
 			songInfos.setLrcUrl(lrcUrl);
@@ -271,9 +271,9 @@ public class SearchSong {
 		} catch (IOException e) {
 			e.printStackTrace();
 
-			// JOptionPane.showMessageDialog(null, "¸èÇúµØÖ·: " + songUrl +
-			// "\n¸èÇúÃû: "
-			// + songName + "  ¶ÁÈ¡Êı¾İÒì³£", "", JOptionPane.PLAIN_MESSAGE);
+			// JOptionPane.showMessageDialog(null, "æ­Œæ›²åœ°å€: " + songUrl +
+			// "\næ­Œæ›²å: "
+			// + songName + "  è¯»å–æ•°æ®å¼‚å¸¸", "", JOptionPane.PLAIN_MESSAGE);
 
 		}
 
@@ -281,8 +281,8 @@ public class SearchSong {
 	}
 
 	/**
-	 * ÓÉÓÚÊÜ°Ù¶ÈÒôÀÖ¸Ä°æµÄÓ°Ïì,ÕâÀï²»Ö±½ÓÈ¥»ñÈ¡¸èÇú×ÊÔ´µØÖ·ºÍÎÄ¼ş×Ü×Ö½ÚÊı °Ù¶ÈÒôÀÖÓÃÁËµÇÂ½ºÍJS¼ÓÃÜÕâ¸öµØÖ·
-	 * ÎÒÃÇÓÃ°Ù¶ÈÒôÀÖºĞhttp://box.zhangmen.baidu.com/µÄxmlÎÄ¼ş¼ä½Ó»ñÈ¡
+	 * ç”±äºå—ç™¾åº¦éŸ³ä¹æ”¹ç‰ˆçš„å½±å“,è¿™é‡Œä¸ç›´æ¥å»è·å–æ­Œæ›²èµ„æºåœ°å€å’Œæ–‡ä»¶æ€»å­—èŠ‚æ•° ç™¾åº¦éŸ³ä¹ç”¨äº†ç™»é™†å’ŒJSåŠ å¯†è¿™ä¸ªåœ°å€
+	 * æˆ‘ä»¬ç”¨ç™¾åº¦éŸ³ä¹ç›’http://box.zhangmen.baidu.com/çš„xmlæ–‡ä»¶é—´æ¥è·å–
 	 * 
 	 * 
 	 */
@@ -301,7 +301,7 @@ public class SearchSong {
 		}
 
 		/**
-		 * ÌáÈ¡durl½ÚµãÖĞµÄencode½ÚµãµÄ×Ö·û´®Óëdecode½ÚµãµÄ×Ö·û´®Æ´½Ó¸èÇú×ÊÔ´µØÖ·
+		 * æå–durlèŠ‚ç‚¹ä¸­çš„encodeèŠ‚ç‚¹çš„å­—ç¬¦ä¸²ä¸decodeèŠ‚ç‚¹çš„å­—ç¬¦ä¸²æ‹¼æ¥æ­Œæ›²èµ„æºåœ°å€
 		 **/
 		String dataUrl = "";
 		Elements durlNodes = document.select("durl");
@@ -322,16 +322,16 @@ public class SearchSong {
 		}
 
 		/**
-		 * »ñÈ¡¸èÇúÎÄ¼ş³¤¶ÈºÍ±ÈÌØÂÊ
+		 * è·å–æ­Œæ›²æ–‡ä»¶é•¿åº¦å’Œæ¯”ç‰¹ç‡
 		 **/
 		int dataSize = 0;
 		int totalTime = 0;
 
 		Element p2p = document.select("p2p").first();
 		if (p2p != null) {
-			// ÎÄ¼ş×Ü×Ö½ÚÊı
+			// æ–‡ä»¶æ€»å­—èŠ‚æ•°
 			String dataSizeText = p2p.select("size").first().text();
-			// ±ÈÌØÂÊ
+			// æ¯”ç‰¹ç‡
 			int bitRate = Integer.parseInt(p2p.select("bitrate").text()) * 1000;
 
 			dataSize = Integer.parseInt(dataSizeText);
@@ -347,7 +347,7 @@ public class SearchSong {
 	}
 
 	/**
-	 * Çå³ıÒÑ½âÎöµÄ¸èÇúĞÅÏ¢µÈ
+	 * æ¸…é™¤å·²è§£æçš„æ­Œæ›²ä¿¡æ¯ç­‰
 	 */
 	public void clear() {
 
@@ -358,10 +358,10 @@ public class SearchSong {
 	}
 
 	/**
-	 * ÉèÖÃËÑË÷µÄ¹Ø¼ü×Ö Ö®ºóĞèµ÷ÓÃsearch·½·¨½øĞĞËÑË÷
+	 * è®¾ç½®æœç´¢çš„å…³é”®å­— ä¹‹åéœ€è°ƒç”¨searchæ–¹æ³•è¿›è¡Œæœç´¢
 	 * 
 	 * @param key
-	 *            ¹Ø¼ü×Ö
+	 *            å…³é”®å­—
 	 * @return SearchSong this
 	 */
 	public SearchSong setKey(String key) {
@@ -374,10 +374,10 @@ public class SearchSong {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°Ò³Ãæ
+	 * è®¾ç½®å½“å‰é¡µé¢
 	 * 
 	 * @param start
-	 *            ÉèÖÃµ±Ç°Ò³ÃæµÚÒ»Ê×¸èÇúÔÚ¿âÖĞµÄĞòºÅ,
+	 *            è®¾ç½®å½“å‰é¡µé¢ç¬¬ä¸€é¦–æ­Œæ›²åœ¨åº“ä¸­çš„åºå·,
 	 * @return SearchSong this
 	 */
 	public SearchSong setPage(int page) {
@@ -387,7 +387,7 @@ public class SearchSong {
 		return this;
 	}
 
-	// ÉèÖÃÒ³Ãæ
+	// è®¾ç½®é¡µé¢
 	public int getPage() {
 		return page;
 	}
