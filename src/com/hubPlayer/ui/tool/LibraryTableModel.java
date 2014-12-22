@@ -6,26 +6,26 @@ import javax.swing.table.DefaultTableModel;
 import com.hubPlayer.song.SongInfos;
 
 /**
- * Ò»¸ö¸èÇúĞÅÏ¢±í¸ñÄ£ĞÍ,¼ÌĞøÄ¬ÈÏ±í¸ñÄ£Ê½DefaultTableModel,ÊµÏÖµ¥Ôª¸ñäÖÈ¾Æ÷TableCellRenderer
- * ±í¸ñÍ·Îª¸èÇú(String),¸èÊÖ(String),×¨¼­(String),²Ù×÷(JPanel) ¶¨ÒåäÖÈ¾Æ÷ÏÔÊ¾²Ù×÷Ãæ°å
- * ÆäÖĞ²Ù×÷Ãæ°å°üº¬3¸ö°´Å¥:²¥·Å,¼ÓÈëÁĞ±í,ÏÂÔØ
+ * ä¸€ä¸ªæ­Œæ›²ä¿¡æ¯è¡¨æ ¼æ¨¡å‹,ç»§ç»­é»˜è®¤è¡¨æ ¼æ¨¡å¼DefaultTableModel,å®ç°å•å…ƒæ ¼æ¸²æŸ“å™¨TableCellRenderer
+ * è¡¨æ ¼å¤´ä¸ºæ­Œæ›²(String),æ­Œæ‰‹(String),ä¸“è¾‘(String),æ“ä½œ(JPanel) å®šä¹‰æ¸²æŸ“å™¨æ˜¾ç¤ºæ“ä½œé¢æ¿
+ * å…¶ä¸­æ“ä½œé¢æ¿åŒ…å«3ä¸ªæŒ‰é’®:æ’­æ”¾,åŠ å…¥åˆ—è¡¨,ä¸‹è½½
  * 
  * @date 2014-11-7
  */
 
 public class LibraryTableModel extends DefaultTableModel {
 
-	// ±êÌâÀ¸
-	private static final String[] title = new String[] { "¸èÇú", "¸èÊÖ", "×¨¼­", "²Ù×÷" };
-	// ±êÌâÀ¸¶ÔÓ¦µÄÊı¾İÀàĞÍ
+	// æ ‡é¢˜æ 
+	private static final String[] title = new String[] { "æ­Œæ›²", "æ­Œæ‰‹", "ä¸“è¾‘", "æ“ä½œ" };
+	// æ ‡é¢˜æ å¯¹åº”çš„æ•°æ®ç±»å‹
 	private static final Class[] types = new Class[] { String.class,
 			String.class, String.class, Object.class };
 
-	// ±êÌâÀ¸¶ÔÓ¦µÄ¿É±à¼­×´Ì¬
+	// æ ‡é¢˜æ å¯¹åº”çš„å¯ç¼–è¾‘çŠ¶æ€
 	private static final boolean[] canEdit = new boolean[] { false, false,
 			false, true };
 
-	// ±í¸ñ³õÊ¼Êı¾İ
+	// è¡¨æ ¼åˆå§‹æ•°æ®
 	private static final Object[][] initData = new Object[][] {
 			{ null, null, null, null }, { null, null, null, null },
 			{ null, null, null, null }, { null, null, null, null },
@@ -38,7 +38,7 @@ public class LibraryTableModel extends DefaultTableModel {
 			{ null, null, null, null }, { null, null, null, null },
 			{ null, null, null, null }, { null, null, null, null } };
 
-	// ²Ù×÷Ãæ°å
+	// æ“ä½œé¢æ¿
 	private LibraryOperation libraryOperation;
 
 	public LibraryTableModel() {
@@ -49,23 +49,29 @@ public class LibraryTableModel extends DefaultTableModel {
 
 	public void deleteTableData() {
 
-		// Í¨Öª±í¸ñ£¬Êı¾İÒª¸Ä±ä
+		// é€šçŸ¥è¡¨æ ¼ï¼Œæ•°æ®è¦æ”¹å˜
 		 fireTableDataChanged();
-		// Çå³ı±í¸ñĞĞ
+		// æ¸…é™¤è¡¨æ ¼è¡Œ
 		for (int i = getRowCount() - 1; i >= 0; i--) {
 			removeRow(i);
 		}
-		// Çå³ı±í¸ñÊı¾İ
+		// æ¸…é™¤è¡¨æ ¼æ•°æ®
 		getDataVector().clear();
+        // åƒåœ¾å›æ”¶
+		try {
+			this.finalize();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 
 	}
 
-	// ¼ì²âÃ¿ÁĞ¶ÔÓ¦Êı¾İÀàĞÍ
+	// æ£€æµ‹æ¯åˆ—å¯¹åº”æ•°æ®ç±»å‹
 	public Class getColumnClass(int columnIndex) {
 		return types[columnIndex];
 	}
 
-	// ¼ì²âµ¥Ôª¸ñ¶ÔÓ¦µÄ¿É±à¼­×´Ì¬
+	// æ£€æµ‹å•å…ƒæ ¼å¯¹åº”çš„å¯ç¼–è¾‘çŠ¶æ€
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		return canEdit[columnIndex];
 	}
@@ -76,7 +82,7 @@ public class LibraryTableModel extends DefaultTableModel {
 		String singer = songInfos.getSinger();
 		String album = songInfos.getAlbum();
 
-		// ²Ù×÷Ãæ°å,½ÓÊÜ¸èÇúĞÅÏ¢
+		// æ“ä½œé¢æ¿,æ¥å—æ­Œæ›²ä¿¡æ¯
 		JPanel panel = libraryOperation.new OperationPanel(songInfos);
 
 		Object[] data = new Object[] { song, singer, album, panel };
