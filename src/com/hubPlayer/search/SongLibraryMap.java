@@ -4,15 +4,26 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * ¸èÇú¿â¼¯ºÏ ±£´æµ½±¾µØ
+ * æ­Œæ›²åº“é›†åˆ ä¿å­˜åˆ°æœ¬åœ°
  * 
  * @param <V>
  *            String searchKey
  * @param <K>
  *            List<SongInfos> songList
- *            
- *  @date 2014-12-6
+ * 
+ * @date 2014-12-6
  */
 public class SongLibraryMap<K, V> extends HashMap<K, V> implements Serializable {
+
+    // æ­Œæ›²ç¼“å­˜æ—¶é—´
+	private Long bufferedDatetime;
+
+	public long getBufferedDateTime() {
+		return bufferedDatetime;
+	}
+
+	public void setBufferedDateTime(long bufferedDatetime) {
+		this.bufferedDatetime = bufferedDatetime;
+	}
 
 }
