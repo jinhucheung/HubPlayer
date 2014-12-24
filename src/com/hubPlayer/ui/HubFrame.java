@@ -6,13 +6,14 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -21,10 +22,6 @@ import javax.swing.JFrame;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 
-
-import java.util.Map;
-import java.util.List;
-
 import com.hubPlayer.player.HigherPlayer;
 import com.hubPlayer.search.SongLibraryMap;
 import com.hubPlayer.song.SongInfos;
@@ -32,45 +29,54 @@ import com.hubPlayer.ui.tool.ButtonToolBar;
 import com.hubPlayer.ui.tool.IconButton;
 
 /**
- * ÒÔ KuGou²¼¾ÖÎª¿ò¼Ü
+ * ä»¥ KuGouå¸ƒå±€ä¸ºæ¡†æž¶
  * 
  * @date 2014-10-1
  */
 
 public class HubFrame extends JFrame {
 
-	private final int InitialWidth = 975;
-	private final int InitialHeight = 670;
-	private final Point InitialPoint;
+    private static final int InitialWidth;
+	private static final int InitialHeight;
+	private static final Point InitialPoint;
 
-	private final int ChangedWidth = 365;
+	private static final int ChangedWidth;
+
+	private static final String savaPath;
+	private static final double bufferedTime;
 
 	private PlayPanel playPanel;
 	private PlayListPanel playListPanel;
 	private SearchPanel searchPanel;
 	private ShowPanel showPanel;
-
 	private ButtonToolBar toolBar;
 
 	private SongLibraryMap<String, List<SongInfos>> songLibrary;
 
-	private final static String savaPath = "E:/Hub/download";
+	static {
+		Dimension dime = Toolkit.getDefaultToolkit().getScreenSize();
+		InitialWidth = 975;
+		InitialHeight = 670;
+		ChangedWidth = 365;
+		InitialPoint = new Point((dime.width - InitialWidth) / 2,
+				(dime.height - InitialHeight) / 2);
+
+		savaPath = "E:/Hub/download";
+		bufferedTime = 2 * Math.pow(10, 8);
+	}
 
 	public HubFrame() {
 
 		setTitle("Hub");
 		setSize(InitialWidth, InitialHeight);
 
-		Dimension dime = Toolkit.getDefaultToolkit().getScreenSize();
-		InitialPoint = new Point((dime.width - InitialWidth) / 2,
-				(dime.height - InitialHeight) / 2);
 		setLocation(InitialPoint);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// ±£´æÏÂÔØ¸èÇúÎÄ¼þ¼Ð
+		// ä¿å­˜ä¸‹è½½æ­Œæ›²æ–‡ä»¶å¤¹
 		File savefolder = new File(savaPath);
 
-		// ´´½¨ÒÑÏÂÔØ¸èÇúµÄ´æ´¢ÎÄ¼þ¼Ð
+		// åˆ›å»ºå·²ä¸‹è½½æ­Œæ›²çš„å­˜å‚¨æ–‡ä»¶å¤¹
 		if (!savefolder.exists())
 			savefolder.mkdirs();
 
@@ -90,10 +96,10 @@ public class HubFrame extends JFrame {
 		toolBar = new ButtonToolBar(JToolBar.VERTICAL, 4);
 
 		JButton[] toolBarButtons = new JButton[] {
-				new IconButton("±¾µØÁÐ±í", "icon/note.png"),
-				new IconButton("ÍøÂçÊÕ²Ø", "icon/clouds.png"),
-				new IconButton("ÎÒµÄÏÂÔØ", "icon/download.png"),
-				new IconButton("¸ü¶à", "icon/app.png") };
+				new IconButton("æœ¬åœ°åˆ—è¡¨", "icon/note.png"),
+				new IconButton("ç½‘ç»œæ”¶è—", "icon/clouds.png"),
+				new IconButton("æˆ‘çš„ä¸‹è½½", "icon/download.png"),
+				new IconButton("æ›´å¤š", "icon/app.png") };
 
 		toolBar.addButtons(toolBarButtons);
 
@@ -103,28 +109,28 @@ public class HubFrame extends JFrame {
 
 		showPanel = new ShowPanel();
 
-		// ´«µÝ¸ø¸÷Ãæ°åµÄÊôÐÔ
+		// ä¼ é€’ç»™å„é¢æ¿çš„å±žæ€§
 		JTree[] listTree = playListPanel.deliverTree();
 		HigherPlayer player = playPanel.getHigherPlayer();
 
-		// ¹µÍ¨²¥·ÅÃæ°åÓë¸èÇúÁÐ±íÃæ°å
+		// æ²Ÿé€šæ’­æ”¾é¢æ¿ä¸Žæ­Œæ›²åˆ—è¡¨é¢æ¿
 		playPanel.setTrees(listTree);
 		player.setJTree(listTree[0]);
 		playListPanel.deliverHigherPlayer(player);
 
-		// ¹µÍ¨ÀÖ¿âÃæ°åÓë¸èÇúÁÐ±íÃæ°å
+		// æ²Ÿé€šä¹åº“é¢æ¿ä¸Žæ­Œæ›²åˆ—è¡¨é¢æ¿
 		showPanel.setListTree(listTree);
 
-		// ¹µÍ¨ËÑË÷Ãæ°åÓëÕ¹Ê¾Ãæ°å
+		// æ²Ÿé€šæœç´¢é¢æ¿ä¸Žå±•ç¤ºé¢æ¿
 		searchPanel.setShowPanel(showPanel);
 
-		// ¹µÍ¨ËÑË÷Ãæ°åÓë±¾µØ
+		// æ²Ÿé€šæœç´¢é¢æ¿ä¸Žæœ¬åœ°
 		searchPanel.setSongLibraryMap(songLibrary);
 
-		// ¹µÍ¨²¥·ÅÃæ°åÓë¸è´ÊÃæ°å
+		// æ²Ÿé€šæ’­æ”¾é¢æ¿ä¸Žæ­Œè¯é¢æ¿
 		playPanel.setLrcPanelTextArea(showPanel.getTextArea());
 
-		// ¹µÍ¨ÀÖ¿âÃæ°åÓë²¥·ÅÃæ°å
+		// æ²Ÿé€šä¹åº“é¢æ¿ä¸Žæ’­æ”¾é¢æ¿
 		showPanel.setPlayer(player);
 
 		playPanel.setParentFrame(this);
@@ -143,7 +149,7 @@ public class HubFrame extends JFrame {
 
 	private void setAction() {
 
-		// ÉèÖÃ×î´ó»¯ÊÂ¼þ ¼´Õ¹¿ª´°Ìå
+		// è®¾ç½®æœ€å¤§åŒ–äº‹ä»¶ å³å±•å¼€çª—ä½“
 		this.addWindowStateListener(event -> {
 			if (event.getNewState() == JFrame.MAXIMIZED_BOTH) {
 				searchPanel.setVisible(true);
@@ -155,7 +161,7 @@ public class HubFrame extends JFrame {
 			}
 		});
 
-		// ÕÛµþ´°Ìå
+		// æŠ˜å çª—ä½“
 		searchPanel.getCollapseButton().addActionListener(event -> {
 			searchPanel.setVisible(false);
 			showPanel.setVisible(false);
@@ -197,15 +203,21 @@ public class HubFrame extends JFrame {
 	private void readSongLibrary() {
 
 		File library = new File("E:/Hub/SongLibrary.dat");
-		if (!library.exists())
+		if (!library.exists()) {
 			songLibrary = new SongLibraryMap<String, List<SongInfos>>();
-		else {
+		} else {
 
 			try {
 				ObjectInputStream inputStream = new ObjectInputStream(
 						new FileInputStream(library));
 				songLibrary = (SongLibraryMap<String, List<SongInfos>>) inputStream
 						.readObject();
+
+				// æ­Œæ›²åº“ç¼“å­˜è¶…è¿‡çº¦ä¸¤å¤©,å°†æ¸…é™¤
+				long bufferedDateTime = songLibrary.getBufferedDateTime();
+				if ((new Date().getTime() - bufferedDateTime) > bufferedTime) {
+					songLibrary.clear();
+				}
 
 				inputStream.close();
 			} catch (IOException | ClassNotFoundException e) {
@@ -218,7 +230,7 @@ public class HubFrame extends JFrame {
 	private void saveSongLibrary() {
 
 		if (songLibrary != null) {
-
+			songLibrary.setBufferedDateTime(new Date().getTime());
 			try {
 				ObjectOutputStream outputStream = new ObjectOutputStream(
 						new FileOutputStream(new File("E:/Hub/SongLibrary.dat")));
