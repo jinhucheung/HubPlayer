@@ -15,7 +15,7 @@ import com.hubPlayer.song.SongInfos;
 
 public class LibraryTableModel extends DefaultTableModel {
 
-	// 标题栏
+    // 标题栏
 	private static final String[] title = new String[] { "歌曲", "歌手", "专辑", "操作" };
 	// 标题栏对应的数据类型
 	private static final Class[] types = new Class[] { String.class,
