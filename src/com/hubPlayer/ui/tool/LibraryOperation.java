@@ -22,19 +22,19 @@ import com.hubPlayer.song.SongInfos;
 import com.hubPlayer.song.SongNode;
 
 /**
- * HubLibraryOperation´¦ÀíÍâ²ã½»»¥ ÀÖ¿âÊı¾İ±í¸ñÖĞµÄ²Ù×÷Ãæ°å(OperationPanel),Ö÷Òª°üº¬3¸ö°´Å¥:²¥·Å,¼Óµ½ÁĞ±í,ÏÂÔØ
+ * HubLibraryOperationå¤„ç†å¤–å±‚äº¤äº’ ä¹åº“æ•°æ®è¡¨æ ¼ä¸­çš„æ“ä½œé¢æ¿(OperationPanel),ä¸»è¦åŒ…å«3ä¸ªæŒ‰é’®:æ’­æ”¾,åŠ åˆ°åˆ—è¡¨,ä¸‹è½½
  * 
  * @date 2014-11-07
  */
 
 public class LibraryOperation {
 
-	private JTree[] trees;
+    private JTree[] trees;
 
-	// ²¥·ÅÆ÷
+	// æ’­æ”¾å™¨
 	private HigherPlayer player;
 
-	// ÏÂÔØÍê³ÉÌáÊ¾ Ö»ÎªµÚÒ»´ÎÏÂÔØ×÷ÌáÊ¾
+	// ä¸‹è½½å®Œæˆæç¤º åªä¸ºç¬¬ä¸€æ¬¡ä¸‹è½½ä½œæç¤º
 	private static boolean TipFlag = true;
 
 	private final static String savePath = "E:/Hub/download";
@@ -64,7 +64,7 @@ public class LibraryOperation {
 			setAction();
 		}
 
-		// ½ÓÊÕ¸èÇúĞÅÏ¢
+		// æ¥æ”¶æ­Œæ›²ä¿¡æ¯
 		public OperationPanel(SongInfos songInfos) {
 
 			this();
@@ -81,9 +81,9 @@ public class LibraryOperation {
 		}
 
 		private void initComponent() {
-			play = new IconButton("²¥·Å", "icon/note2.png");
-			toList = new IconButton("Ìí¼Óµ½ÁĞ±í", "icon/add.png");
-			download = new IconButton("ÏÂÔØ", "icon/download2.png");
+			play = new IconButton("æ’­æ”¾", "icon/note2.png");
+			toList = new IconButton("æ·»åŠ åˆ°åˆ—è¡¨", "icon/add.png");
+			download = new IconButton("ä¸‹è½½", "icon/download2.png");
 
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
@@ -98,30 +98,30 @@ public class LibraryOperation {
 
 		private void setAction() {
 
-			// ²¥·Å
+			// æ’­æ”¾
 			play.addActionListener(event -> {
 
-				// Ñ¡ÖĞÄ¬ÈÏ²¥·ÅÁĞ±í
+				// é€‰ä¸­é»˜è®¤æ’­æ”¾åˆ—è¡¨
 				trees[0].setSelectionRow(0);
 
 				addTreeList(trees[0], 0);
 
 				player.setSelectTreeNodeInCurrentList(songNode, dataURL);
 
-				// ²¥·Å°´Å¥²¥·Å
+				// æ’­æ”¾æŒ‰é’®æ’­æ”¾
 				player.getPlayButton().doClick();
 			});
 
-			// ¼Óµ½²¥·ÅÁĞ±í
+			// åŠ åˆ°æ’­æ”¾åˆ—è¡¨
 			toList.addActionListener(event -> {
 				addTreeList(trees[0], 0);
 			});
 
-			// ÏÂÔØ
+			// ä¸‹è½½
 			download.addActionListener(event -> {
 
 				if (dataURL == null || dataURL.length() == 0) {
-					JOptionPane.showMessageDialog(null, "Ã»ÓĞÕÒµ½×ÊÔ´ÏàÓ¦µÄÏÂÔØÁ´½Ó", "",
+					JOptionPane.showMessageDialog(null, "æ²¡æœ‰æ‰¾åˆ°èµ„æºç›¸åº”çš„ä¸‹è½½é“¾æ¥", "",
 							JOptionPane.PLAIN_MESSAGE);
 					return;
 				}
@@ -129,11 +129,11 @@ public class LibraryOperation {
 				new Thread(() -> {
 					try {
 
-						// ´ò¿ª×ÊÔ´Á´½Ó
+						// æ‰“å¼€èµ„æºé“¾æ¥
 						HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(
 								dataURL).openConnection();
 
-						// ¿ªÆôIOÁ÷ ¶ÁĞ´Êı¾İ
+						// å¼€å¯IOæµ è¯»å†™æ•°æ®
 						BufferedInputStream inputStream = new BufferedInputStream(
 								httpURLConnection.getInputStream());
 
@@ -144,7 +144,7 @@ public class LibraryOperation {
 						BufferedOutputStream outputStream = new BufferedOutputStream(
 								new FileOutputStream(new File(songName)));
 
-						// ¼ÓÈëµ½ÏÂÔØÃæ°å µÄ"ÏÂÔØÖĞ"½Úµã
+						// åŠ å…¥åˆ°ä¸‹è½½é¢æ¿ çš„"ä¸‹è½½ä¸­"èŠ‚ç‚¹
 						addTreeList(trees[2], 0);
 
 						byte[] buff = new byte[1024];
@@ -158,15 +158,15 @@ public class LibraryOperation {
 						outputStream.close();
 						inputStream.close();
 
-						// ÒÆ³ı"ÏÂÔØÖĞ"µÄ¸èÇúĞÅÏ¢
+						// ç§»é™¤"ä¸‹è½½ä¸­"çš„æ­Œæ›²ä¿¡æ¯
 						removeSongNodeInTreeList(trees[2], 0);
-						// ½«¸èÇúĞÅÏ¢ÒÆÈë"ÒÑÏÂÔØ"
+						// å°†æ­Œæ›²ä¿¡æ¯ç§»å…¥"å·²ä¸‹è½½"
 						addTreeList(trees[2], 1);
 
-						// ÏÂÔØÍê³ÉÌáÊ¾
+						// ä¸‹è½½å®Œæˆæç¤º
 						if (TipFlag) {
 
-							JOptionPane.showMessageDialog(null, "ÏÂÔØÍê³É,ÎÄ¼ş´æÖÁ  "
+							JOptionPane.showMessageDialog(null, "ä¸‹è½½å®Œæˆ,æ–‡ä»¶å­˜è‡³  "
 									+ savePath, "", JOptionPane.PLAIN_MESSAGE);
 							TipFlag = false;
 						}
@@ -190,13 +190,13 @@ public class LibraryOperation {
 
 			list.add(songNode);
 
-			// ÁĞ±íÃû¸üĞÂ
+			// åˆ—è¡¨åæ›´æ–°
 			String listName = (String) list.getUserObject();
 			listName = listName.substring(0, listName.lastIndexOf("[")) + "["
 					+ list.getChildCount() + "]";
 			list.setUserObject(listName);
 
-			// Èç¹ûÕâÀï²»¸üĞÂÊ÷µÄ»° »á²»ÕıÈ·ÏÔÊ¾
+			// å¦‚æœè¿™é‡Œä¸æ›´æ–°æ ‘çš„è¯ ä¼šä¸æ­£ç¡®æ˜¾ç¤º
 			tree.updateUI();
 
 		}
@@ -209,13 +209,13 @@ public class LibraryOperation {
 
 			list.remove(songNode);
 
-			// ÁĞ±íÃû¸üĞÂ
+			// åˆ—è¡¨åæ›´æ–°
 			String listName = (String) list.getUserObject();
 			listName = listName.substring(0, listName.lastIndexOf("[")) + "["
 					+ list.getChildCount() + "]";
 			list.setUserObject(listName);
 
-			// Èç¹ûÕâÀï²»¸üĞÂÊ÷µÄ»° »á²»ÕıÈ·ÏÔÊ¾
+			// å¦‚æœè¿™é‡Œä¸æ›´æ–°æ ‘çš„è¯ ä¼šä¸æ­£ç¡®æ˜¾ç¤º
 			tree.updateUI();
 
 		}
