@@ -3,7 +3,6 @@ package com.hubPlayer.ui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
@@ -23,40 +21,40 @@ import com.hubPlayer.ui.tool.LibraryPanel;
 import com.hubPlayer.ui.tool.LibraryTableModel;
 
 /**
- * ËÑË÷¹¦ÄÜÃæ°å
+ * æœç´¢åŠŸèƒ½é¢æ¿
  * 
  * @date 2014-10-26
  */
 
 public class SearchPanel extends JPanel {
 
-	// ËÑË÷¹¦ÄÜÏà¹Ø
+    // æœç´¢åŠŸèƒ½ç›¸å…³
 	private JTextField textField;
 	private JButton searchButton;
-	// ¼ÇÂ¼Ç°Ò»´ÎÊäÈëµÄÎÄ±¾
+	// è®°å½•å‰ä¸€æ¬¡è¾“å…¥çš„æ–‡æœ¬
 	private String beforeKey;
-	// ½âÎöÓÉ¹Ø¼ü×Ö²úÉúµÄËÑË÷ÍøÒ³
+	// è§£æç”±å…³é”®å­—äº§ç”Ÿçš„æœç´¢ç½‘é¡µ
 	private SearchSong searchSong;
 	private Thread searchThread;
 
 	private JButton userButton;
 
-	// Ö÷ÒªÓÃÓÚÇĞ»»Õ¹Ê¾Ãæ°åÒ³Ãæ
+	// ä¸»è¦ç”¨äºåˆ‡æ¢å±•ç¤ºé¢æ¿é¡µé¢
 	private ButtonToolBar hubToolBar;
 
 	private JButton[] toolBarButtons;
 
-	// ÓëÕ¹Ê¾Ãæ°åÏà¹Ø
+	// ä¸å±•ç¤ºé¢æ¿ç›¸å…³
 	private ShowPanel showPanel;
 	private CardLayout cardLayout;
 
 	private LibraryPanel libraryPanel;
 	private LibraryTableModel libraryTableModel;
 
-	// ×î´óËÑË÷Ò³Êı
+	// æœ€å¤§æœç´¢é¡µæ•°
 	private int maxPage;
 
-	// ÒôÀÖ¿âÊı¾İ¼¯
+	// éŸ³ä¹åº“æ•°æ®é›†
 	private Map<String, List<SongInfos>> songLibraryMap;
 
 	public SearchPanel() {
@@ -73,8 +71,8 @@ public class SearchPanel extends JPanel {
 		textField = new JTextField();
 		textField.setPreferredSize(new Dimension(200, 30));
 
-		searchButton = new IconButton("ËÑË÷", "icon/search.png");
-		userButton = new IconButton("ÓÃ»§", "icon/user.png");
+		searchButton = new IconButton("æœç´¢", "icon/search.png");
+		userButton = new IconButton("ç”¨æˆ·", "icon/user.png");
 
 		searchButton.setPreferredSize(new Dimension(50, 30));
 		userButton.setPreferredSize(new Dimension(50, 30));
@@ -84,17 +82,17 @@ public class SearchPanel extends JPanel {
 
 		toolBarButtons = new JButton[6];
 
-		toolBarButtons[0] = new IconButton("ÕÛµş", "icon/collapse.png");
-		toolBarButtons[1] = new IconButton("ÀÖ¿â");
-		toolBarButtons[1].setText("ÀÖ¿â");
+		toolBarButtons[0] = new IconButton("æŠ˜å ", "icon/collapse.png");
+		toolBarButtons[1] = new IconButton("ä¹åº“");
+		toolBarButtons[1].setText("ä¹åº“");
 		toolBarButtons[2] = new IconButton("MV");
 		toolBarButtons[2].setText("MV");
-		toolBarButtons[3] = new IconButton("¸è´Ê");
-		toolBarButtons[3].setText("¸è´Ê");
-		toolBarButtons[4] = new IconButton("µçÌ¨");
-		toolBarButtons[4].setText("µçÌ¨");
-		toolBarButtons[5] = new IconButton("Ö±²¥");
-		toolBarButtons[5].setText("Ö±²¥");
+		toolBarButtons[3] = new IconButton("æ­Œè¯");
+		toolBarButtons[3].setText("æ­Œè¯");
+		toolBarButtons[4] = new IconButton("ç”µå°");
+		toolBarButtons[4].setText("ç”µå°");
+		toolBarButtons[5] = new IconButton("ç›´æ’­");
+		toolBarButtons[5].setText("ç›´æ’­");
 
 		hubToolBar.addButtons(toolBarButtons);
 
@@ -147,8 +145,8 @@ public class SearchPanel extends JPanel {
 
 		});
 
-		// ³õÊ¼ÏÔÊ¾°Ù¶ÈÒôÀÖĞÂ¸è
-		// textField.setText("°Ù¶ÈÒôÀÖĞÂ¸è°ñ/ÔÂ°ñ");
+		// åˆå§‹æ˜¾ç¤ºç™¾åº¦éŸ³ä¹æ–°æ­Œ
+		// textField.setText("ç™¾åº¦éŸ³ä¹æ–°æ­Œæ¦œ/æœˆæ¦œ");
 		// searchButton.doClick();
 	}
 
@@ -166,13 +164,13 @@ public class SearchPanel extends JPanel {
 				key = beforeKey;
 			}
 
-			// ÅĞ¶Ï¸èÇú¿âÓ³ÉäÊÇ·ñ°üº¬´Ë¹Ø¼ü×Ö,Ã»ÓĞÔò½øĞĞsearchButtonµÄËÑË÷
+			// åˆ¤æ–­æ­Œæ›²åº“æ˜ å°„æ˜¯å¦åŒ…å«æ­¤å…³é”®å­—,æ²¡æœ‰åˆ™è¿›è¡ŒsearchButtonçš„æœç´¢
 				if (songLibraryMap.containsKey(key)) {
 
 					int searchPage = searchSong.getPage() + 1;
 
 					if (searchPage > maxPage) {
-						JOptionPane.showMessageDialog(null, "ÒÑ¾­Ã»ÓĞ¸ü¶àÊı¾İ", "",
+						JOptionPane.showMessageDialog(null, "å·²ç»æ²¡æœ‰æ›´å¤šæ•°æ®", "",
 								JOptionPane.PLAIN_MESSAGE);
 						return;
 					}
@@ -193,7 +191,7 @@ public class SearchPanel extends JPanel {
 			});
 	}
 
-	// ¼ÆËã¸èÇú·ÖÒ³
+	// è®¡ç®—æ­Œæ›²åˆ†é¡µ
 	private int countPage(int songNumber) {
 		int page = songNumber / 20;
 		if (songNumber % 20 != 0)
@@ -201,10 +199,10 @@ public class SearchPanel extends JPanel {
 		return page;
 	}
 
-	// Ô¤ÅĞËÑË÷¹Ø¼ü×Ö
+	// é¢„åˆ¤æœç´¢å…³é”®å­—
 	private boolean prejudgeForSearchButton(String key) {
 		if (searchThread != null && searchThread.isAlive()) {
-			JOptionPane.showMessageDialog(null, "ÕıÔÚËÑË÷Êı¾İÖĞ,ÇëÄÍĞÄµÈ´ı", "",
+			JOptionPane.showMessageDialog(null, "æ­£åœ¨æœç´¢æ•°æ®ä¸­,è¯·è€å¿ƒç­‰å¾…", "",
 					JOptionPane.PLAIN_MESSAGE);
 			return false;
 		}
@@ -212,7 +210,7 @@ public class SearchPanel extends JPanel {
 		if (key == null || key.length() == 0)
 			return false;
 
-		// ËÑË÷¹Ø¼ü×ÖÃ»±äÇÒ²»ÊÇÒª½øĞĞ·ÖÒ³ËÑË÷
+		// æœç´¢å…³é”®å­—æ²¡å˜ä¸”ä¸æ˜¯è¦è¿›è¡Œåˆ†é¡µæœç´¢
 		if (key.equals(beforeKey))
 			return false;
 
@@ -220,11 +218,11 @@ public class SearchPanel extends JPanel {
 
 	}
 
-	// Ô¤ÅĞËÑË÷¹Ø¼ü×Ö
+	// é¢„åˆ¤æœç´¢å…³é”®å­—
 	private boolean prejudgeForMoreSearch(String key) {
-		// ÕıÔÚËÑË÷ÖĞ
+		// æ­£åœ¨æœç´¢ä¸­
 		if (searchThread != null && searchThread.isAlive()) {
-			JOptionPane.showMessageDialog(null, "ÕıÔÚËÑË÷Êı¾İÖĞ,ÇëÄÍĞÄµÈ´ı", "",
+			JOptionPane.showMessageDialog(null, "æ­£åœ¨æœç´¢æ•°æ®ä¸­,è¯·è€å¿ƒç­‰å¾…", "",
 					JOptionPane.PLAIN_MESSAGE);
 			return false;
 		}
@@ -235,45 +233,45 @@ public class SearchPanel extends JPanel {
 		return true;
 	}
 
-	// ËÑË÷¹ı³Ì
+	// æœç´¢è¿‡ç¨‹
 	private void searchForSearchButton(String key) {
-		// <-----------ËÑË÷Êı¾İ------------>
+		// <-----------æœç´¢æ•°æ®------------>
 		if (!songLibraryMap.containsKey(key)) {
-			// Çå³ıÇ°´Î½âÎöµÄĞÅÏ¢
+			// æ¸…é™¤å‰æ¬¡è§£æçš„ä¿¡æ¯
 			searchSong.clear();
 
-			// ÉèÖÃ¹Ø¼ü×Ö ½øĞĞ´Ë´Î½âÎö
+			// è®¾ç½®å…³é”®å­— è¿›è¡Œæ­¤æ¬¡è§£æ
 			if (!searchSong.setKey(key).openConnection()) {
-				// Á¬½ÓÊ§°Ü
+				// è¿æ¥å¤±è´¥
 				beforeKey = "";
 				return;
 			}
 
 			if (songLibraryMap.containsKey(key)) {
 
-				// »ñÈ¡ËüµÄÉÏÏŞÒ³Êı
+				// è·å–å®ƒçš„ä¸Šé™é¡µæ•°
 				maxPage = countPage(searchSong.getSongNumber());
 			}
 		}
 
-		// <-----------Êı¾İ¼ÓÈë±í¸ñ------------>
-		// ±í¸ñÑ¡ÖĞÊı¾İºÍÈ¡ÏûÑ¡ÖĞ£¬ÊÇÎªÁËÈ¥µôÒ»¸öBug:ÔÚµ±Ç°Ò³Ãæ²Ù×÷µ¥Ôª¸ñÊ±£¬µ±»»ĞÂÒ³Ê±£¬ÄÇ¸ö±»²Ù×÷µÄµ¥Ôª¸ñÊı¾İ²»¸üĞÂ
+		// <-----------æ•°æ®åŠ å…¥è¡¨æ ¼------------>
+		// è¡¨æ ¼é€‰ä¸­æ•°æ®å’Œå–æ¶ˆé€‰ä¸­ï¼Œæ˜¯ä¸ºäº†å»æ‰ä¸€ä¸ªBug:åœ¨å½“å‰é¡µé¢æ“ä½œå•å…ƒæ ¼æ—¶ï¼Œå½“æ¢æ–°é¡µæ—¶ï¼Œé‚£ä¸ªè¢«æ“ä½œçš„å•å…ƒæ ¼æ•°æ®ä¸æ›´æ–°
 		libraryPanel.getDataTable().selectAll();
 
-		// ±í¸ñÊı¾İÇå¿Õ
+		// è¡¨æ ¼æ•°æ®æ¸…ç©º
 		libraryTableModel.deleteTableData();
 	
 
 		List<SongInfos> songList = songLibraryMap.get(key);
 		int addSongNum = songList.size();
 
-		// ¸üĞÂÀÖ¿â±í¸ñÊı¾İ
+		// æ›´æ–°ä¹åº“è¡¨æ ¼æ•°æ®
 		songList.subList(0, addSongNum).forEach(
 				each -> libraryTableModel.updateData(each));
 
 		libraryPanel.getDataTable().clearSelection();
 
-		// ±£Áô´Ë´ÎËÑË÷µÄ¹Ø¼ü×Ö
+		// ä¿ç•™æ­¤æ¬¡æœç´¢çš„å…³é”®å­—
 		beforeKey = key;
 
 		int page = countPage(addSongNum);
@@ -281,7 +279,7 @@ public class SearchPanel extends JPanel {
 
 	}
 
-	// ËÑË÷¹ı³Ì
+	// æœç´¢è¿‡ç¨‹
 	private void searchForMoreSearch(String key, int page) {
 
 		searchSong.setPage(page);
@@ -289,9 +287,9 @@ public class SearchPanel extends JPanel {
 		List<SongInfos> songList = songLibraryMap.get(key);
 
 		int songNum = songList.size();
-		// ÉèÖÃ¹Ø¼ü×Ö ½øĞĞ´Ë´Î½âÎö
+		// è®¾ç½®å…³é”®å­— è¿›è¡Œæ­¤æ¬¡è§£æ
 		if (!searchSong.setKey(key).openConnection()) {
-			// Á¬½ÓÊ§°Ü
+			// è¿æ¥å¤±è´¥
 			return;
 		}
 
@@ -300,9 +298,6 @@ public class SearchPanel extends JPanel {
 		songList.subList(songNum, songList.size()).forEach(
 				each -> libraryTableModel.updateData(each));
 
-		// libraryPanel.getTableScrollBar()
-		// .setValue(
-		// libraryPanel.getTableScrollBar().getMaximum()+1);
 
 	}
 
@@ -310,7 +305,7 @@ public class SearchPanel extends JPanel {
 		this.showPanel = showPanel;
 		this.cardLayout = (CardLayout) showPanel.getLayout();
 
-		// ¹µÍ¨ÀÖ¿âÃæ°åÓëËÑË÷¸èÇúĞÅÏ¢
+		// æ²Ÿé€šä¹åº“é¢æ¿ä¸æœç´¢æ­Œæ›²ä¿¡æ¯
 		libraryPanel = showPanel.getLibraryPanel();
 		libraryTableModel = libraryPanel.getLibraryTableModel();
 
@@ -318,14 +313,14 @@ public class SearchPanel extends JPanel {
 
 	}
 
-	// HubFrame´«½øÀ´µÄ¸èÇú¿â¼¯ºÏ
+	// HubFrameä¼ è¿›æ¥çš„æ­Œæ›²åº“é›†åˆ
 	public void setSongLibraryMap(Map<String, List<SongInfos>> songLibraryMap) {
 
 		this.songLibraryMap = songLibraryMap;
 		searchSong.setSongLibraryMap(songLibraryMap);
 	}
 
-	// ÕÛµşÃæ°å°´Å¥
+	// æŠ˜å é¢æ¿æŒ‰é’®
 	public JButton getCollapseButton() {
 		return toolBarButtons[0];
 	}
