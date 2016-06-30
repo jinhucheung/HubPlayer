@@ -3,7 +3,6 @@ package com.hubPlayer.song;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -16,14 +15,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * ¸è´ÊĞÅÏ¢:±êÌâ/¸èÊÖ/×¨¼­/Ê±¼ä-¸è´ÊÎÄ±¾×é
+ * æ­Œè¯ä¿¡æ¯:æ ‡é¢˜/æ­Œæ‰‹/ä¸“è¾‘/æ—¶é—´-æ­Œè¯æ–‡æœ¬ç»„
  * 
  * @date 2014-10-31
  */
 
 public class LrcInfos {
 
-	private String title;
+    private String title;
 	private String singer;
 	private String album;
 	private int totalTime;
@@ -41,7 +40,7 @@ public class LrcInfos {
 		pattern = Pattern.compile(regex);
 	}
 
-	// ¶ÁÈë±¾µØ¸è´ÊÎÄ¼ş
+	// è¯»å…¥æœ¬åœ°æ­Œè¯æ–‡ä»¶
 	public void read(File file) {
 
 		try {
@@ -61,7 +60,7 @@ public class LrcInfos {
 
 	}
 
-	// ¶ÁÈëÍøÂç×ÊÔ´
+	// è¯»å…¥ç½‘ç»œèµ„æº
 	public void read(String lrcUrl) {
 
 		try {
@@ -85,19 +84,19 @@ public class LrcInfos {
 
 	}
 
-	// Æ¥ÅäÒ»ĞĞ×Ö·û
+	// åŒ¹é…ä¸€è¡Œå­—ç¬¦
 	private void match(String line) {
 
-		// ÅĞ¶Ïµ±Ç°ĞĞÊÇ·ñÎª¸èÊÖ¡¢±êÌâ¡¢×¨¼­ ²»ÊÇ Âú×ã
+		// åˆ¤æ–­å½“å‰è¡Œæ˜¯å¦ä¸ºæ­Œæ‰‹ã€æ ‡é¢˜ã€ä¸“è¾‘ ä¸æ˜¯ æ»¡è¶³
 		if (!line.endsWith("]")) {
 
-			// Æ¥Åäµ±Ç°µÄÊ±¼ä¸ñÊ½
+			// åŒ¹é…å½“å‰çš„æ—¶é—´æ ¼å¼
 			Matcher matcher = pattern.matcher(line);
 
 			int endIndex = 0;
-			// Âú×ãÔò
+			// æ»¡è¶³åˆ™
 			while (matcher.find()) {
-				// »ñÈ¡ÄÚÈİ
+				// è·å–å†…å®¹
 				String group = matcher.group();
 
 				group = group.substring(1, group.length() - 1);
@@ -119,7 +118,7 @@ public class LrcInfos {
 		}
 	}
 
-	// ½âÎöµ±Ç°ĞÅÏ¢Ê±¼ä ÃëÖÆ
+	// è§£æå½“å‰ä¿¡æ¯æ—¶é—´ ç§’åˆ¶
 	private int toCurrentTime(String time) {
 		int currentTime = 0;
 
