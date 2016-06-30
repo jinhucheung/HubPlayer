@@ -15,12 +15,9 @@ import javax.swing.JToolBar;
 
 public class ButtonToolBar extends JToolBar {
 
-
-	private JButton[] buttons;
-
+    private JButton[] buttons;
 
 	public ButtonToolBar() {
-		setBorderPainted(false);
 
 		setMargin(new Insets(0, 5, 5, 5));
 		setFloatable(false);
@@ -50,9 +47,7 @@ public class ButtonToolBar extends JToolBar {
 			add(buttons[i]);
 		}
 
-		
 	}
-
 
 	public JButton[] getButtons() {
 		return buttons;
