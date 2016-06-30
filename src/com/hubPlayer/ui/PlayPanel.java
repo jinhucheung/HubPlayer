@@ -37,14 +37,14 @@ import com.hubPlayer.ui.tool.TimeProgressBar;
  */
 
 /**
- * ²¥·ÅÃæ°å Ê¹ÓÃNetBean Matisse¹¹½¨.Ãæ°å°üº¬£º3¸ö±êÇ©£¬7¸ö°´Å¥£¬1¸ö½ø¶ÈÌõ£¬1¸ö×éºÏ¿òºÍ1¸ö»¬¿éÌõ
+ * æ’­æ”¾é¢æ¿ ä½¿ç”¨NetBean Matisseæ„å»º.é¢æ¿åŒ…å«ï¼š3ä¸ªæ ‡ç­¾ï¼Œ7ä¸ªæŒ‰é’®ï¼Œ1ä¸ªè¿›åº¦æ¡ï¼Œ1ä¸ªç»„åˆæ¡†å’Œ1ä¸ªæ»‘å—æ¡
  * 
  * @date 2014-10-9
  */
 
 public class PlayPanel extends JPanel {
 
-	/**
+    /**
 	 * Creates new form HubPlayPanel
 	 */
 	public PlayPanel() {
@@ -63,21 +63,21 @@ public class PlayPanel extends JPanel {
 
 		songName = new JLabel("Music");
 
-		download = new IconButton("ÏÂÔØ", "icon/download.png");
-		mark = new IconButton("ÎÒÏ²»¶", "icon/heart.png");
-		share = new IconButton("·ÖÏí", "icon/share.png");
+		download = new IconButton("ä¸‹è½½", "icon/download.png");
+		mark = new IconButton("æˆ‘å–œæ¬¢", "icon/heart.png");
+		share = new IconButton("åˆ†äº«", "icon/share.png");
 
 		timerProgressBar = new TimeProgressBar();
 		mode = new JComboBox<>();
 
-		backPlay = new IconButton("ÉÏÒ»Ê×", "icon/back.png");
-		play = new IconButton("²¥·Å", "icon/play.png");
+		backPlay = new IconButton("ä¸Šä¸€é¦–", "icon/back.png");
+		play = new IconButton("æ’­æ”¾", "icon/play.png");
 		play.setSelectedIcon(new ImageIcon("icon/pause.png"));
 		play.setDisabledSelectedIcon(new ImageIcon("icon/play.png"));
 		play.setMnemonic(KeyEvent.VK_ENTER);
 
-		frontPlay = new IconButton("ÏÂÒ»Ê×", "icon/front.png");
-		voiceControl = new IconButton("¾²Òô", "icon/voice.png");
+		frontPlay = new IconButton("ä¸‹ä¸€é¦–", "icon/front.png");
+		voiceControl = new IconButton("é™éŸ³", "icon/voice.png");
 		voiceAdjust = new JSlider(minVoice, maxVoice);
 		voiceAdjust.setValue(suitableVoice);
 		audioTotalTimeLabel = new JLabel("4:00");
@@ -96,8 +96,8 @@ public class PlayPanel extends JPanel {
 
 		timerProgressBar.setPreferredSize(new Dimension(340, 7));
 
-		mode.setModel(new DefaultComboBoxModel(new String[] { "µ¥Çú²¥·Å", "µ¥ÇúÑ­»·",
-				"Ë³Ğò²¥·Å", "ÁĞ±íÑ­»·", "Ëæ»ú²¥·Å" }));
+		mode.setModel(new DefaultComboBoxModel(new String[] { "å•æ›²æ’­æ”¾", "å•æ›²å¾ªç¯",
+				"é¡ºåºæ’­æ”¾", "åˆ—è¡¨å¾ªç¯", "éšæœºæ’­æ”¾" }));
 
 		backPlay.setPreferredSize(new Dimension(30, 30));
 
@@ -381,62 +381,62 @@ public class PlayPanel extends JPanel {
 
 	public void setButtonsAction() {
 
-		// ²¥·Å °´Å¥
+		// æ’­æ”¾ æŒ‰é’®
 		play.addActionListener(event -> {
 
 			if (player.getLoadSongName() == null) {
 				return;
 			}
 
-			// ÔÚµÚÒ»´Î²¥·ÅÊ± ÎªÁË²»½øÈëÏÂÃæÒ»¸öifÅĞ¶Ï
-			// Èç¹ûPlayingSongName==nullÊ±£¬Ôò½øÈë£¬ÖÕÖ¹µ±Ç°¸èÇú²¥·Å£¬¿ÉÊÇµ±Ç°²¥·ÅÏß³Ì»¹Ã»ÓĞÊµÀı ±¨Òì³£
+			// åœ¨ç¬¬ä¸€æ¬¡æ’­æ”¾æ—¶ ä¸ºäº†ä¸è¿›å…¥ä¸‹é¢ä¸€ä¸ªifåˆ¤æ–­
+			// å¦‚æœPlayingSongName==nullæ—¶ï¼Œåˆ™è¿›å…¥ï¼Œç»ˆæ­¢å½“å‰æ­Œæ›²æ’­æ”¾ï¼Œå¯æ˜¯å½“å‰æ’­æ”¾çº¿ç¨‹è¿˜æ²¡æœ‰å®ä¾‹ æŠ¥å¼‚å¸¸
 			if (player.getPlayingSongName() == null) {
 				player.setPlayingSongName(player.getLoadSongName());
 			}
 
-			// ÔÚ²¥·Å¹ı³ÌÇĞ»»¸èÇú
+			// åœ¨æ’­æ”¾è¿‡ç¨‹åˆ‡æ¢æ­Œæ›²
 			if (!player.getLoadSongName().equals(player.getPlayingSongName())
 					&& !player.IsComplete) {
 
-				// ÖÕÖ¹µ±Ç°¸èÇú²¥·Å
+				// ç»ˆæ­¢å½“å‰æ­Œæ›²æ’­æ”¾
 				player.end();
 				player.setPlayingSongName(player.getLoadSongName());
 			}
 
-			// ÊÇÔİÍ£ Ôò²¥·Å
+			// æ˜¯æš‚åœ åˆ™æ’­æ”¾
 			if (player.IsPause) {
 
 				if (player.NeedContinue) {
-					// ¼ÌĞø²¥·Å
+					// ç»§ç»­æ’­æ”¾
 					player.resume();
-					// ½ø¶ÈÌõµÄ¿ØÖÆ
+					// è¿›åº¦æ¡çš„æ§åˆ¶
 					timerProgressBar.setTimerControl(false);
 					timerProgressBar.resumeTimer();
 					play.setIcon(play.getSelectedIcon());
-					play.setToolTipText("ÔİÍ£");
+					play.setToolTipText("æš‚åœ");
 					return;
 				}
 				
-				// ½ø¶ÈÌõµÄ¿ØÖÆ ²»×èÈû
+				// è¿›åº¦æ¡çš„æ§åˆ¶ ä¸é˜»å¡
 				timerProgressBar.setTimerControl(false);
-				// ²¥·Å¸èÇú
+				// æ’­æ”¾æ­Œæ›²
 				player.open();
 				
-				// ÉùÒô¿ØÖÆ
+				// å£°éŸ³æ§åˆ¶
 				voiceAdjust.setValue(suitableVoice);
 				songName.setText(player.getPlayingSongName());
 				play.setIcon(play.getSelectedIcon());
-				play.setToolTipText("ÔİÍ£");
+				play.setToolTipText("æš‚åœ");
 				player.IsPause = false;
 
 			} else {
-				// ÊÇ²¥·Å ÔòÔİÍ£
+				// æ˜¯æ’­æ”¾ åˆ™æš‚åœ
 				player.IsPause = true;
 
 				timerProgressBar.setTimerControl(true);
 
 				play.setIcon(play.getDisabledSelectedIcon());
-				play.setToolTipText("²¥·Å");
+				play.setToolTipText("æ’­æ”¾");
 			}
 
 			songName.updateUI();
@@ -444,7 +444,7 @@ public class PlayPanel extends JPanel {
 			parentFrame.setVisible(true);
 		});
 
-		//Ç°Ò»Ê×°´Å¥
+		//å‰ä¸€é¦–æŒ‰é’®
 		backPlay.addActionListener(event -> {
 
 			if (player.getLoadSongName() == null) {
@@ -457,7 +457,7 @@ public class PlayPanel extends JPanel {
 
 		});
 
-		// ºóÒ»Ê×°´Å¥
+		// åä¸€é¦–æŒ‰é’®
 		frontPlay.addActionListener(event -> {
 
 			if (player.getLoadSongName() == null) {
@@ -470,7 +470,7 @@ public class PlayPanel extends JPanel {
 
 		});
 
-		//ÉùÒô¿ØÖÆ°´Å¥
+		//å£°éŸ³æ§åˆ¶æŒ‰é’®
 		voiceControl.addActionListener(event -> {
 
 			if (!player.IsPause) {
@@ -485,33 +485,33 @@ public class PlayPanel extends JPanel {
 
 		});
 
-		// ÏÂÔØ¸èÇú°´Å¥
+		// ä¸‹è½½æ­Œæ›²æŒ‰é’®
 		download.addActionListener(event -> {
 
-			// ÎŞÔØÈë¸èÊ±
+			// æ— è½½å…¥æ­Œæ—¶
 			if (player.getLoadSongName() == null) {
 				return;
 			}
 
 			if (!player.audio.toString().startsWith("http://")) {
-				JOptionPane.showMessageDialog(null, "²¥·ÅÖĞ¸èÇúÊÇ±¾µØ×ÊÔ´,ÎŞĞèÏÂÔØ ", "",
+				JOptionPane.showMessageDialog(null, "æ’­æ”¾ä¸­æ­Œæ›²æ˜¯æœ¬åœ°èµ„æº,æ— éœ€ä¸‹è½½ ", "",
 						JOptionPane.PLAIN_MESSAGE);
 				return;
 			}
 
 			SongNode playedSong = (SongNode) player.getPlayingSong();
 
-			// ÏÂÔØÃæ°å"ÏÂÔØÖĞ"ÁĞ±íÌí¼Ó²¥·ÅÖĞµÄ¸èÇú
+			// ä¸‹è½½é¢æ¿"ä¸‹è½½ä¸­"åˆ—è¡¨æ·»åŠ æ’­æ”¾ä¸­çš„æ­Œæ›²
 			addSongNodeToTreeList(trees[2], 0, playedSong);
 
-			JOptionPane.showMessageDialog(null, "ÒÑ³É¹¦Ìí¼Óµ½ÏÂÔØÁĞ±í", null,
+			JOptionPane.showMessageDialog(null, "å·²æˆåŠŸæ·»åŠ åˆ°ä¸‹è½½åˆ—è¡¨", null,
 					JOptionPane.PLAIN_MESSAGE, null);
 
 			download(playedSong);
 
 		});
 
-		// ±ê¼Ç°´Å¥
+		// æ ‡è®°æŒ‰é’®
 		mark.addActionListener(event -> {
 
 			if (player.getLoadSongName() == null) {
@@ -520,10 +520,10 @@ public class PlayPanel extends JPanel {
 
 			SongNode playedSong = (SongNode) player.getPlayingSong();
 
-			// ¼ÓÈë±ê¼ÇÁĞ±í
+			// åŠ å…¥æ ‡è®°åˆ—è¡¨
 			addSongNodeToTreeList(trees[1], 1, playedSong);
 
-			JOptionPane.showMessageDialog(null, "ÒÑ³É¹¦Ìí¼Óµ½ÊÕ²ØÁĞ±í", null,
+			JOptionPane.showMessageDialog(null, "å·²æˆåŠŸæ·»åŠ åˆ°æ”¶è—åˆ—è¡¨", null,
 					JOptionPane.PLAIN_MESSAGE, null);
 		});
 
@@ -546,18 +546,18 @@ public class PlayPanel extends JPanel {
 
 	}
 
-	// ÏÂÔØ¸èÇú
+	// ä¸‹è½½æ­Œæ›²
 	public void download(SongNode songNode) {
 		new Thread(
 				() -> {
 
 					try {
 
-						// ´ò¿ª×ÊÔ´Á´½Ó
+						// æ‰“å¼€èµ„æºé“¾æ¥
 						HttpURLConnection httpURLConnection = (HttpURLConnection) player.audio
 								.openConnection();
 
-						// ¿ªÆôIOÁ÷ ¶ÁĞ´Êı¾İ
+						// å¼€å¯IOæµ è¯»å†™æ•°æ®
 						BufferedInputStream inputStream = new BufferedInputStream(
 								httpURLConnection.getInputStream());
 
@@ -576,13 +576,13 @@ public class PlayPanel extends JPanel {
 						outputStream.close();
 						inputStream.close();
 
-						// ÏÂÔØÖĞÁĞ±íÒÆ³ı½Úµã
+						// ä¸‹è½½ä¸­åˆ—è¡¨ç§»é™¤èŠ‚ç‚¹
 						removeSongNodeInTreeList(trees[2], 0, songNode);
 
-						// ÏÂÔØÍê³ÉÁĞ±í¼ÓÈë½Úµã
+						// ä¸‹è½½å®Œæˆåˆ—è¡¨åŠ å…¥èŠ‚ç‚¹
 						addSongNodeToTreeList(trees[2], 1, songNode);
 
-						JOptionPane.showMessageDialog(null, "ÏÂÔØÍê³É,ÎÄ¼ş´æÖÁE:/Hub/download",
+						JOptionPane.showMessageDialog(null, "ä¸‹è½½å®Œæˆ,æ–‡ä»¶å­˜è‡³E:/Hub/download",
 								"", JOptionPane.PLAIN_MESSAGE);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -600,13 +600,13 @@ public class PlayPanel extends JPanel {
 
 		list.add(songNode);
 
-		// ÁĞ±íÃû¸üĞÂ
+		// åˆ—è¡¨åæ›´æ–°
 		String listName = (String) list.getUserObject();
 		listName = listName.substring(0, listName.lastIndexOf("[")) + "["
 				+ list.getChildCount() + "]";
 		list.setUserObject(listName);
 
-		// Èç¹ûÕâÀï²»¸üĞÂÊ÷µÄ»° »á²»ÕıÈ·ÏÔÊ¾
+		// å¦‚æœè¿™é‡Œä¸æ›´æ–°æ ‘çš„è¯ ä¼šä¸æ­£ç¡®æ˜¾ç¤º
 		tree.updateUI();
 
 	}
@@ -620,13 +620,13 @@ public class PlayPanel extends JPanel {
 
 		list.remove(songNode);
 
-		// ÁĞ±íÃû¸üĞÂ
+		// åˆ—è¡¨åæ›´æ–°
 		String listName = (String) list.getUserObject();
 		listName = listName.substring(0, listName.lastIndexOf("[")) + "["
 				+ list.getChildCount() + "]";
 		list.setUserObject(listName);
 
-		// Èç¹ûÕâÀï²»¸üĞÂÊ÷µÄ»° »á²»ÕıÈ·ÏÔÊ¾
+		// å¦‚æœè¿™é‡Œä¸æ›´æ–°æ ‘çš„è¯ ä¼šä¸æ­£ç¡®æ˜¾ç¤º
 		tree.updateUI();
 
 	}
@@ -666,7 +666,7 @@ public class PlayPanel extends JPanel {
 
 	private HigherPlayer player;
 	
-	// ÓÉFloatControl.Type.MASTER_GAINµÃµ½µÄÊı¾İ
+	// ç”±FloatControl.Type.MASTER_GAINå¾—åˆ°çš„æ•°æ®
 	private final int minVoice = -80;
 	private final int maxVoice = 6;
 	private final int suitableVoice = -20;
