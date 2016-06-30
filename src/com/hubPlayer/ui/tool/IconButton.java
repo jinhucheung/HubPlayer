@@ -4,14 +4,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
- * ͼƬ��ť
+ * 图片按钮
  * 
  * @date 2014-10-7
  */
 
 public class IconButton extends JButton {
 
-	public IconButton(String tip) {
+    public IconButton(String tip) {
 		setToolTipText(tip);
 		setBorderPainted(false);
 		setOpaque(false);
