@@ -3,7 +3,6 @@ package com.hubPlayer.search;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -27,7 +26,7 @@ import com.hubPlayer.song.SongInfos;
 
 public class SearchSong {
 
-	// http://music.baidu.com/search/song?s=1&key=key&start=00&size=20
+    // http://music.baidu.com/search/song?s=1&key=key&start=00&size=20
 	// 上面是百度音乐搜索地址形式, key是关键字,start是以库中的第几条歌曲开始,size为页面显示的歌曲数目(最大为20)
 
 	// 搜索地址及网页编码集 百度音乐是以utf-8编码
@@ -46,15 +45,13 @@ public class SearchSong {
 	// boolean flag;
 
 	public SearchSong() {
-		// songLibraryMap = new HashMap<String, List<SongInfos>>();
 
 		// 第一页
 		page = 1;
 		// 第一首歌序号
 		start = 0;
 
-		
-		songNumber =20;
+		songNumber = 20;
 	}
 
 	/**
@@ -88,7 +85,7 @@ public class SearchSong {
 			// 打开链接,获取HTML文 档
 			// 功能用URLConnection一样,下面被注释了的代码
 			Document document = Jsoup.connect(searchUrl).get();
-		
+
 			parseHtml(document);
 
 			// // 打开连接
@@ -383,7 +380,7 @@ public class SearchSong {
 	public SearchSong setPage(int page) {
 		this.page = page;
 		start = (page - 1) * 20;
-		
+
 		return this;
 	}
 
