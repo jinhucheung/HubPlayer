@@ -5,35 +5,36 @@ import java.io.File;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * SongNode ÏÔÊ¾¸èÇúÃû×Ö ²»ÏÔÊ¾¸èÇúÂ·¾¶
+ * SongNode æ˜¾ç¤ºæ­Œæ›²åå­— ä¸æ˜¾ç¤ºæ­Œæ›²è·¯å¾„
  * 
  * @date 2014-10-15
  */
 
 public class SongNode extends DefaultMutableTreeNode {
 
-	private File song;
+    private File song;
 	private String dataUrl;
-	// ±ê¼Ç¸èÇúÊÇ·ñÎªÍøÂç×ÊÔ´
+	// æ ‡è®°æ­Œæ›²æ˜¯å¦ä¸ºç½‘ç»œèµ„æº
 	private boolean HTTPFlag;
-	// ²¥·ÅÊ±³¤
+	// æ’­æ”¾æ—¶é•¿
 	private int totalTime;
-	// ÎÄ¼ş³¤¶È
+	// æ–‡ä»¶é•¿åº¦
 	private int dataSize;
 
-	// ±¾µØÓëÍøÂç¸è´Ê×ÊÔ´
+	// æœ¬åœ°ä¸ç½‘ç»œæ­Œè¯èµ„æº
 	private File lrcFile;
-	// ½âÎöµÄ¸èÇúĞÅÏ¢
+	// è§£æçš„æ­Œæ›²ä¿¡æ¯
 	private LrcInfos lrcInfo;
 
-	// ¸èÇúµÄÉÏ¼¶Â·¾¶
+	// æ­Œæ›²çš„ä¸Šçº§è·¯å¾„
 	private String parentPath;
-	// ÎŞÀ©Õ¹ÃûµÄ¸èÇúÃû
+	// æ— æ‰©å±•åçš„æ­Œæ›²å
 	private String songName;
 
 	public SongNode(File song) {
 		super(song, false);
 		this.song = song;
+		dataUrl = song.toURI().toString();
 
 		parentPath = song.getParent();
 		songName = song.getName();
@@ -47,7 +48,7 @@ public class SongNode extends DefaultMutableTreeNode {
 		}
 	}
 
-	// ÍøÂç×ÊÔ´
+	// ç½‘ç»œèµ„æº
 	public SongNode(String songName, int totalTime, int dataSize,
 			String lrcUrl, String dataUrl) {
 		try {
@@ -61,21 +62,39 @@ public class SongNode extends DefaultMutableTreeNode {
 
 		HTTPFlag = true;
 
-		// ´ó¸ÅµÄ²¥·ÅÊ±¼ä ÕæÕı²¥·ÅÊ±³¤´ó¸ÅÊÇËã³öµÄÊ±¼ä-3
+		// å¤§æ¦‚çš„æ’­æ”¾æ—¶é—´ çœŸæ­£æ’­æ”¾æ—¶é•¿å¤§æ¦‚æ˜¯ç®—å‡ºçš„æ—¶é—´-3
 		this.totalTime = totalTime - 3;
 
 		lrcInfo = new LrcInfos();
 
-		// ´æÔÚ¸èÇúÁ´½Ó
+		// å­˜åœ¨æ­Œæ›²é“¾æ¥
 		if (lrcUrl.length() > 0) {
 			lrcInfo.read(lrcUrl);
-			// ÀûÓÃ¸è´ÊÀ´µÃµ½¾«È·µÄ²¥·ÅÊ±¼ä
+			// åˆ©ç”¨æ­Œè¯æ¥å¾—åˆ°ç²¾ç¡®çš„æ’­æ”¾æ—¶é—´
 			int time = lrcInfo.getTotalTime();
 			if (this.totalTime < time) {
 				this.totalTime = time;
 			}
 		}
 
+	}
+
+	@Override
+	public boolean equals(Object object) {
+
+		if (this == object)
+			return true;
+		if (object == null)
+			return false;
+		if (getClass() != object.getClass())
+			return false;
+
+		if (song == null)
+			return false;
+
+		SongNode objectNode = (SongNode) object;
+
+		return song.equals(objectNode.getSong());
 	}
 
 	public int getTotalTime() {
@@ -124,20 +143,4 @@ public class SongNode extends DefaultMutableTreeNode {
 
 	}
 
-	public boolean equals(Object object) {
-		
-		if (this == object)
-			return true;
-		if (object == null)
-			return false;
-		if (getClass() != object.getClass())
-			return false;
-
-		if (song == null)
-			return false;
-
-		SongNode objectNode = (SongNode) object;
-
-		return song.equals(objectNode.getSong());
-	}
 }
