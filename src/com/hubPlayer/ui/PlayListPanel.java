@@ -13,14 +13,14 @@ import com.hubPlayer.ui.tool.AppPanel;
 import com.hubPlayer.ui.tool.SongListPanel;
 
 /**
- * ²¥·ÅÁĞ±íÃæ°å
+ * æ’­æ”¾åˆ—è¡¨é¢æ¿
  * 
  * @date 2014-10-12
  */
 
 public class PlayListPanel extends JPanel {
 
-	private SongListPanel songListPanel;
+    private SongListPanel songListPanel;
 	private SongListPanel cloudsPanel;
 	private SongListPanel downloadPanel;
 	private JScrollPane appPanel;
@@ -44,13 +44,13 @@ public class PlayListPanel extends JPanel {
 	}
 
 	private void initPanel() {
-		songListPanel = new SongListPanel("Ä¬ÈÏÁĞ±í");
+		songListPanel = new SongListPanel("é»˜è®¤åˆ—è¡¨");
 		songListPanel.addPopupMenuToTree();
 
-		cloudsPanel = new SongListPanel("Ä¬ÈÏÁĞ±í", "ÎÒÏ²»¶");
+		cloudsPanel = new SongListPanel("é»˜è®¤åˆ—è¡¨", "æˆ‘å–œæ¬¢");
 		cloudsPanel.addPopupMenuToTree();
 
-		downloadPanel = new SongListPanel("ÏÂÔØÖĞ", "ÒÑÏÂÔØ");
+		downloadPanel = new SongListPanel("ä¸‹è½½ä¸­", "å·²ä¸‹è½½");
 
 		appPanel = new JScrollPane(new AppPanel(parent));
 
