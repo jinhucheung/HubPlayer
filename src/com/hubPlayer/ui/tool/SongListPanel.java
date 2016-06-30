@@ -26,13 +26,13 @@ import com.hubPlayer.song.AFilter;
 import com.hubPlayer.song.SongNode;
 
 /**
- * ¸èÇúÁĞ±íÃæ°å:²¥·ÅÁĞ±í£¬±ê¼ÇÁĞ±í¡¢ÏÂÔØÁĞ±í
+ * æ­Œæ›²åˆ—è¡¨é¢æ¿:æ’­æ”¾åˆ—è¡¨ï¼Œæ ‡è®°åˆ—è¡¨ã€ä¸‹è½½åˆ—è¡¨
  * 
  * @date 2014-10-12
  */
 
 public class SongListPanel extends JScrollPane {
-	// ²Ëµ¥ÏîÏà¹Ø
+    // èœå•é¡¹ç›¸å…³
 	private JMenuItem newList;
 	private JMenuItem removeList;
 	private JMenuItem cleanList;
@@ -47,18 +47,18 @@ public class SongListPanel extends JScrollPane {
 
 	private JPopupMenu popupMenu;
 
-	// ¸èÇú¡¢¸è´ÊÁĞ±íÏà¹Ø
+	// æ­Œæ›²ã€æ­Œè¯åˆ—è¡¨ç›¸å…³
 	private JTree tree;
 	private DefaultMutableTreeNode topNode;
 	private int defaultNodes;
 	private List<SongNode> songlist;
 
-	// ÎÄ¼ş¶Ô»°¿òÏà¹Ø
+	// æ–‡ä»¶å¯¹è¯æ¡†ç›¸å…³
 	private JFileChooser fileChooser;
 	private FileNameExtensionFilter songFilter;
 	private FileNameExtensionFilter lrcFilter;
 
-	// ²¥·ÅÆ÷
+	// æ’­æ”¾å™¨
 	private HigherPlayer higherPlayer;
 
 	public SongListPanel(String... defaultNodes) {
@@ -72,10 +72,10 @@ public class SongListPanel extends JScrollPane {
 
 	private void initComponent(String... defaultNodes) {
 
-		// Ê÷×é¼ş
+		// æ ‘ç»„ä»¶
 		topNode = new DefaultMutableTreeNode();
 
-		// node±íÄ¬ÈÏµÄÁĞ±í [0]±íÊ¾ÁĞ±íÖĞµÄ¸èÇúÊı
+		// nodeè¡¨é»˜è®¤çš„åˆ—è¡¨ [0]è¡¨ç¤ºåˆ—è¡¨ä¸­çš„æ­Œæ›²æ•°
 		for (int i = 0; i < defaultNodes.length; i++) {
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(
 					defaultNodes[i] + "[0]");
@@ -87,16 +87,16 @@ public class SongListPanel extends JScrollPane {
 		tree.startEditingAtPath(new TreePath(new Object[] { topNode,
 				topNode.getFirstChild() }));
 
-		// Òş²Ø¸ù½Úµã
+		// éšè—æ ¹èŠ‚ç‚¹
 		tree.setRootVisible(false);
 
 		getViewport().add(tree);
 
-		// ÎÄ¼şÑ¡ÔñÆ÷´¦Àí
+		// æ–‡ä»¶é€‰æ‹©å™¨å¤„ç†
 		fileChooser = new JFileChooser();
-		songFilter = new FileNameExtensionFilter("ÒôÆµÎÄ¼ş(*.mid;*.mp3;*.wav)",
+		songFilter = new FileNameExtensionFilter("éŸ³é¢‘æ–‡ä»¶(*.mid;*.mp3;*.wav)",
 				"mid", "MID", "mp3", "MP3", "wav", "WAV");
-		lrcFilter = new FileNameExtensionFilter("¸è´ÊÎÄ¼ş(*.lrc)", "lrc", "LRC");
+		lrcFilter = new FileNameExtensionFilter("æ­Œè¯æ–‡ä»¶(*.lrc)", "lrc", "LRC");
 
 		songlist = new Vector<SongNode>();
 	}
@@ -104,28 +104,28 @@ public class SongListPanel extends JScrollPane {
 	private void createPopupmenu() {
 		popupMenu = new JPopupMenu();
 
-		newList = new JMenuItem("ĞÂ½¨ÁĞ±í");
-		removeList = new JMenuItem("ÒÆ³ıÁĞ±í");
-		cleanList = new JMenuItem("Çå¿ÕÁĞ±í");
+		newList = new JMenuItem("æ–°å»ºåˆ—è¡¨");
+		removeList = new JMenuItem("ç§»é™¤åˆ—è¡¨");
+		cleanList = new JMenuItem("æ¸…ç©ºåˆ—è¡¨");
 
-		addSongFile = new JMenuItem("Ìí¼Ó±¾µØ¸èÇú");
-		addSongFolder = new JMenuItem("Ìí¼Ó±¾µØ¸èÇúÎÄ¼ş¼Ğ");
+		addSongFile = new JMenuItem("æ·»åŠ æœ¬åœ°æ­Œæ›²");
+		addSongFolder = new JMenuItem("æ·»åŠ æœ¬åœ°æ­Œæ›²æ–‡ä»¶å¤¹");
 
-		JMenu addSong = new JMenu("Ìí¼Ó¸èÇú");
+		JMenu addSong = new JMenu("æ·»åŠ æ­Œæ›²");
 		addSong.add(addSongFile);
 		addSong.add(addSongFolder);
 
-		addLrcFile = new JMenuItem("Ìí¼Ó±¾µØ¸è´Ê");
-		addLrcFloder = new JMenuItem("Ìí¼Ó±¾µØ¸è´ÊÎÄ¼ş¼Ğ");
+		addLrcFile = new JMenuItem("æ·»åŠ æœ¬åœ°æ­Œè¯");
+		addLrcFloder = new JMenuItem("æ·»åŠ æœ¬åœ°æ­Œè¯æ–‡ä»¶å¤¹");
 
 		addLrcFile.setEnabled(false);
 		addLrcFloder.setEnabled(false);
 
-		JMenu addLrc = new JMenu("Ìí¼Ó¸è´Ê");
+		JMenu addLrc = new JMenu("æ·»åŠ æ­Œè¯");
 		addLrc.add(addLrcFile);
 		addLrc.add(addLrcFloder);
 
-		removeSong = new JMenuItem("É¾³ı¸èÇú");
+		removeSong = new JMenuItem("åˆ é™¤æ­Œæ›²");
 
 		popupMenu.add(newList);
 		popupMenu.add(removeList);
@@ -144,9 +144,9 @@ public class SongListPanel extends JScrollPane {
 
 	private void createAction() {
 
-		// ĞÂ½¨ÁĞ±í
+		// æ–°å»ºåˆ—è¡¨
 		newList.addActionListener(event -> {
-			String listName = JOptionPane.showInputDialog(this, "ÇëÊäÈëĞÂ½¨ÁĞ±íµÄÃû³Æ",
+			String listName = JOptionPane.showInputDialog(this, "è¯·è¾“å…¥æ–°å»ºåˆ—è¡¨çš„åç§°",
 					null, JOptionPane.DEFAULT_OPTION);
 
 			if (listName == null || listName.length() == 0)
@@ -156,7 +156,7 @@ public class SongListPanel extends JScrollPane {
 
 		});
 
-		// ÒÆ³ıÁĞ±í
+		// ç§»é™¤åˆ—è¡¨
 		removeList
 				.addActionListener(event -> {
 
@@ -168,26 +168,26 @@ public class SongListPanel extends JScrollPane {
 					DefaultMutableTreeNode node = (DefaultMutableTreeNode) path
 							.getLastPathComponent();
 
-					// ÅĞ¶ÏÊÇ·ñÔÚ¸èÇúÉÏ´¥·¢ÊÂ¼ş ÊÇ·µ»Ø´Ë¸èÇúµÄÄ¿Â¼
+					// åˆ¤æ–­æ˜¯å¦åœ¨æ­Œæ›²ä¸Šè§¦å‘äº‹ä»¶ æ˜¯è¿”å›æ­¤æ­Œæ›²çš„ç›®å½•
 					if (path.getPathCount() == 3) {
 						node = (DefaultMutableTreeNode) node.getParent();
 					}
 
-					// ¸ÃÄ¿Â¼ÊÇ·ñÎªÄ¬ÈÏÄ¿Â¼
+					// è¯¥ç›®å½•æ˜¯å¦ä¸ºé»˜è®¤ç›®å½•
 					int nodeIndex = topNode.getIndex(node);
 					if (nodeIndex < defaultNodes && nodeIndex != -1)
 						return;
 
-					// ¸ÃÄ¿Â¼ÊÇ·ñº¬¸èÇú ²»º¬Ôò·µ»Øtrue
+					// è¯¥ç›®å½•æ˜¯å¦å«æ­Œæ›² ä¸å«åˆ™è¿”å›true
 					if (node.isLeaf())
 						node.removeFromParent();
 
-					// ¸ÄÄ£Â¼º¬ÓĞ¸èÇú Ñ¯ÎÊÊÇ·ñÒÆ³ı
+					// æ”¹æ¨¡å½•å«æœ‰æ­Œæ›² è¯¢é—®æ˜¯å¦ç§»é™¤
 					else if (JOptionPane
-							.showConfirmDialog(this, "ÁĞ±íÄÚ°üº¬¸èÇú,ÊÇ·ñÉ¾³ı?", null,
+							.showConfirmDialog(this, "åˆ—è¡¨å†…åŒ…å«æ­Œæ›²,æ˜¯å¦åˆ é™¤?", null,
 									JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
-						// ÖÕÖ¹µ±Ç°¸èÇú²¥·Å
+						// ç»ˆæ­¢å½“å‰æ­Œæ›²æ’­æ”¾
 						TreeNode playedSong = higherPlayer.getPlayingSong();
 						if (playedSong != null
 								&& node.getIndex(playedSong) != -1
@@ -195,13 +195,13 @@ public class SongListPanel extends JScrollPane {
 
 							higherPlayer.end();
 
-							// ´¥·¢ÏÂ²¥·Å°´Å¥ Ê¹Ëü´¦ÓÚ´ı²¥·Å×´Ì¬
+							// è§¦å‘ä¸‹æ’­æ”¾æŒ‰é’® ä½¿å®ƒå¤„äºå¾…æ’­æ”¾çŠ¶æ€
 							higherPlayer.IsPause = false;
 							higherPlayer.getPlayButton().doClick();
 							higherPlayer.getSongNameLabel().setText("");
 						}
 
-						// Çå¿Õ¼¯ºÏÖĞµÄ¸èÇú
+						// æ¸…ç©ºé›†åˆä¸­çš„æ­Œæ›²
 						Enumeration<SongNode> e = node.children();
 						while (e.hasMoreElements()) {
 							songlist.remove(e.nextElement());
@@ -217,9 +217,9 @@ public class SongListPanel extends JScrollPane {
 					tree.updateUI();
 				});
 
-		// Çå¿ÕÁĞ±í
+		// æ¸…ç©ºåˆ—è¡¨
 		cleanList.addActionListener(event -> {
-			// ·µ»ØÑ¡ÖĞ½ÚµãµÄÂ·¾¶
+			// è¿”å›é€‰ä¸­èŠ‚ç‚¹çš„è·¯å¾„
 				TreePath path = tree.getSelectionPath();
 
 				if (path == null)
@@ -234,7 +234,7 @@ public class SongListPanel extends JScrollPane {
 				if (node == topNode)
 					return;
 
-				// ÖÕÖ¹µ±Ç°¸èÇú²¥·Å
+				// ç»ˆæ­¢å½“å‰æ­Œæ›²æ’­æ”¾
 				TreeNode playedSong = higherPlayer.getPlayingSong();
 
 				if (playedSong != null && node.getIndex(playedSong) != -1
@@ -258,13 +258,13 @@ public class SongListPanel extends JScrollPane {
 
 				node.removeAllChildren();
 
-				// Éè¸èÇúÁĞ±íµÄ¸èÇúÊıÎª0
+				// è®¾æ­Œæ›²åˆ—è¡¨çš„æ­Œæ›²æ•°ä¸º0
 				updateSongNumInList(node);
 
 				tree.updateUI();
 			});
 
-		// É¾³ı¸èÇú
+		// åˆ é™¤æ­Œæ›²
 		removeSong.addActionListener(event -> {
 			TreePath path = tree.getSelectionPath();
 
@@ -274,15 +274,15 @@ public class SongListPanel extends JScrollPane {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) path
 					.getLastPathComponent();
 
-			// ¸ÃÑ¡ÖĞ½ÚµãÊÇ¸èÇúÄ¿Â¼
+			// è¯¥é€‰ä¸­èŠ‚ç‚¹æ˜¯æ­Œæ›²ç›®å½•
 				if (path.getPathCount() == 2)
 					return;
 
-				// »ñÈ¡µ±Ç°¸èÇúµÄÁĞ±í ÓÃÓÚ¸üĞÂÁĞ±íÖĞ¸èÇúÊı
+				// è·å–å½“å‰æ­Œæ›²çš„åˆ—è¡¨ ç”¨äºæ›´æ–°åˆ—è¡¨ä¸­æ­Œæ›²æ•°
 				DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node
 						.getParent();
 
-				// ÖÕÖ¹µ±Ç°¸èÇú²¥·Å
+				// ç»ˆæ­¢å½“å‰æ­Œæ›²æ’­æ”¾
 				if (node == higherPlayer.getPlayingSong()
 						&& higherPlayer.playThread != null) {
 
@@ -303,7 +303,7 @@ public class SongListPanel extends JScrollPane {
 				tree.updateUI();
 			});
 
-		// Ôö¼Ó±¾µØ¸èÇú
+		// å¢åŠ æœ¬åœ°æ­Œæ›²
 		addSongFile.addActionListener(event -> {
 			TreePath path = tree.getSelectionPath();
 
@@ -313,11 +313,11 @@ public class SongListPanel extends JScrollPane {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) path
 					.getLastPathComponent();
 
-			// Ñ¡ÖĞ½ÚµãÊÇµÚ3¼¶
+			// é€‰ä¸­èŠ‚ç‚¹æ˜¯ç¬¬3çº§
 				if (path.getPathCount() == 3)
 					node = (DefaultMutableTreeNode) node.getParent();
 
-				// ÉèÖÃJFileChooser¿É¶àÑ¡ÒôÆµÎÄ¼ş
+				// è®¾ç½®JFileChooserå¯å¤šé€‰éŸ³é¢‘æ–‡ä»¶
 				fileChooser.setMultiSelectionEnabled(true);
 				fileChooser.setFileFilter(songFilter);
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -331,10 +331,10 @@ public class SongListPanel extends JScrollPane {
 
 			});
 
-		// Ôö¼Ó±¾µØ¸èÇúÎÄ¼ş¼Ğ
+		// å¢åŠ æœ¬åœ°æ­Œæ›²æ–‡ä»¶å¤¹
 		addSongFolder.addActionListener(event -> {
 
-			// JTreeµÄ´¦ÀíºÍ"Ôö¼Ó±¾µØ¸èÇú"Ò»Ñù
+			// JTreeçš„å¤„ç†å’Œ"å¢åŠ æœ¬åœ°æ­Œæ›²"ä¸€æ ·
 				TreePath path = tree.getSelectionPath();
 
 				if (path == null)
@@ -343,21 +343,21 @@ public class SongListPanel extends JScrollPane {
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) path
 						.getLastPathComponent();
 
-				// Ñ¡ÖĞ½ÚµãÊÇµÚ3¼¶
+				// é€‰ä¸­èŠ‚ç‚¹æ˜¯ç¬¬3çº§
 				if (path.getPathCount() == 3)
 					node = (DefaultMutableTreeNode) node.getParent();
 
-				// ÉèÖÃJFileChooserÖ»Ñ¡ÎÄ¼ş¼Ğ
+				// è®¾ç½®JFileChooseråªé€‰æ–‡ä»¶å¤¹
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				fileChooser.setMultiSelectionEnabled(false);
 
 				if (fileChooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
 					return;
 
-				// »ñÈ¡Ñ¡ÖĞµÄÎÄ¼ş¼Ğ
+				// è·å–é€‰ä¸­çš„æ–‡ä»¶å¤¹
 				File directory = fileChooser.getSelectedFile();
 
-				// »ñÈ¡ÎÄ¼ş¼ĞÖĞµÄÎÄ¼ş,ÒÔSongFilter¹ıÂË
+				// è·å–æ–‡ä»¶å¤¹ä¸­çš„æ–‡ä»¶,ä»¥SongFilterè¿‡æ»¤
 				File[] files = directory
 						.listFiles(new AFilter(".mid;.mp3;.wav"));
 
@@ -368,7 +368,7 @@ public class SongListPanel extends JScrollPane {
 
 			});
 
-		// ¸è´ÊÎÄ¼ş
+		// æ­Œè¯æ–‡ä»¶
 		addLrcFile
 				.addActionListener(event -> {
 					fileChooser.setMultiSelectionEnabled(true);
@@ -384,7 +384,7 @@ public class SongListPanel extends JScrollPane {
 
 				});
 
-		// ¸è´ÊÎÄ¼ş¼Ğ
+		// æ­Œè¯æ–‡ä»¶å¤¹
 		addLrcFloder
 				.addActionListener(event -> {
 
@@ -395,10 +395,10 @@ public class SongListPanel extends JScrollPane {
 					if (fileChooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
 						return;
 
-					// »ñÈ¡Ñ¡ÖĞµÄÎÄ¼ş¼Ğ
+					// è·å–é€‰ä¸­çš„æ–‡ä»¶å¤¹
 					File directory = fileChooser.getSelectedFile();
 
-					// »ñÈ¡ÎÄ¼ş¼ĞÖĞµÄÎÄ¼ş,ÒÔSongFilter¹ıÂË
+					// è·å–æ–‡ä»¶å¤¹ä¸­çš„æ–‡ä»¶,ä»¥SongFilterè¿‡æ»¤
 					File[] files = directory.listFiles(new AFilter(".lrc"));
 
 					if (files.length == 0)
@@ -414,10 +414,10 @@ public class SongListPanel extends JScrollPane {
 			@Override
 			public void mousePressed(MouseEvent e) {
 
-				// ÓÒ»÷Ñ¡ÖĞ¸èÇú
+				// å³å‡»é€‰ä¸­æ­Œæ›²
 				if (e.getButton() == MouseEvent.BUTTON3) {
 
-					// »ñµÃÒ»¸ö×î½Ó½üµã»÷µãµÄ½ÚµãÂ·¾¶
+					// è·å¾—ä¸€ä¸ªæœ€æ¥è¿‘ç‚¹å‡»ç‚¹çš„èŠ‚ç‚¹è·¯å¾„
 					TreePath path = tree.getPathForLocation(e.getX(), e.getY());
 
 					if (path != null)
@@ -429,13 +429,13 @@ public class SongListPanel extends JScrollPane {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				// Êó±ê×ó»÷Á½´Î ²¥·Å¸èÇú
+				// é¼ æ ‡å·¦å‡»ä¸¤æ¬¡ æ’­æ”¾æ­Œæ›²
 				if (e.getButton() == MouseEvent.BUTTON1
 						&& e.getClickCount() == 2) {
 
 					TreePath path = tree.getSelectionPath();
 
-					// ¸ÃÑ¡ÖĞ½ÚµãÊÇ·ñÎª¸èÇú
+					// è¯¥é€‰ä¸­èŠ‚ç‚¹æ˜¯å¦ä¸ºæ­Œæ›²
 					if (path != null && path.getPathCount() == 3) {
 
 						SongNode songNode = (SongNode) path
@@ -445,7 +445,7 @@ public class SongListPanel extends JScrollPane {
 							higherPlayer.setJTree(tree);
 						}
 
-						// Èç¹û´Ë¸èÇú½ÚµãÊÇÍøÂç×ÊÔ´,ÔòÔØÈëÆäURL
+						// å¦‚æœæ­¤æ­Œæ›²èŠ‚ç‚¹æ˜¯ç½‘ç»œèµ„æº,åˆ™è½½å…¥å…¶URL
 						if (songNode.getHTTPFlag())
 							higherPlayer.load(songNode, songNode.getDataURL());
 						else
@@ -462,9 +462,9 @@ public class SongListPanel extends JScrollPane {
 
 			TreePath path = tree.getSelectionPath();
 
-			// Ñ¡ÖĞµÄ½ÚµãÊÇÁĞ±í
+			// é€‰ä¸­çš„èŠ‚ç‚¹æ˜¯åˆ—è¡¨
 			if (path.getPathCount() == 2) {
-				// ´Óµ±Ç°Ñ¡ÖĞµÄÁĞ±í¿ªÊ¼²Ù×÷
+				// ä»å½“å‰é€‰ä¸­çš„åˆ—è¡¨å¼€å§‹æ“ä½œ
 
 				higherPlayer.setCurrentListPath(path);
 				tree.startEditingAtPath(path);
@@ -503,19 +503,19 @@ public class SongListPanel extends JScrollPane {
 
 			SongNode node = new SongNode(f);
 
-			// Èç¹ûµ±Ç°ÁĞ±í´æÔÚ´ËÊ×¸è,count²»µÈÓÚ0,Ôò²»¼ÓÈëµ±Ç°ÁĞ±í
-			// songList´æ·ÅÁËËùÓĞ¸èÇúÁĞ±íÖĞµÄ¸èÇú
+			// å¦‚æœå½“å‰åˆ—è¡¨å­˜åœ¨æ­¤é¦–æ­Œ,countä¸ç­‰äº0,åˆ™ä¸åŠ å…¥å½“å‰åˆ—è¡¨
+			// songListå­˜æ”¾äº†æ‰€æœ‰æ­Œæ›²åˆ—è¡¨ä¸­çš„æ­Œæ›²
 			long count = songlist.stream()
 					.filter(each -> parent.equals(each.getParent()))
 					.filter(each -> each.equals(node)).count();
 
-			// ²»ÓÃÅĞ¶Ï if(parent.isNodeChild(node))
-			// ÒòÎªÇ°ÃænewÁËÒ»¸ö½Úµã,Í¬Ê±TreeNodeÃ»µ÷ÓÃËü×Ó½ÚµãµÄequalsÅĞ¶Ï
+			// ä¸ç”¨åˆ¤æ–­ if(parent.isNodeChild(node))
+			// å› ä¸ºå‰é¢newäº†ä¸€ä¸ªèŠ‚ç‚¹,åŒæ—¶TreeNodeæ²¡è°ƒç”¨å®ƒå­èŠ‚ç‚¹çš„equalsåˆ¤æ–­
 			if (count != 0)
 				continue;
 
 			parent.add(node);
-			// ¸èÇú¼¯ºÏ¼ÓÈëÎÄ¼ş
+			// æ­Œæ›²é›†åˆåŠ å…¥æ–‡ä»¶
 			songlist.add(node);
 		}
 
@@ -538,7 +538,7 @@ public class SongListPanel extends JScrollPane {
 			String name = f.getName();
 			String lrcName = name.substring(0, name.lastIndexOf("."));
 
-			// µ±Ç°¸èÇú¼¯ºÏÖĞ×ª³ÉÁ÷Ê½,Ñ¡³öÄÇĞ©Óë¸è´ÊÃûÏàÍ¬µÄ¸èÇú×÷ÎªÒ»¸ö×Ó¼¯ºÏ,ÉèÖÃ×Ó¼¯ºÏÖĞ¸èÇúµÄ¸è´Ê
+			// å½“å‰æ­Œæ›²é›†åˆä¸­è½¬æˆæµå¼,é€‰å‡ºé‚£äº›ä¸æ­Œè¯åç›¸åŒçš„æ­Œæ›²ä½œä¸ºä¸€ä¸ªå­é›†åˆ,è®¾ç½®å­é›†åˆä¸­æ­Œæ›²çš„æ­Œè¯
 			songlist.stream()
 					.filter(each -> each.getSongName().equals(lrcName))
 					.forEach(each -> {
@@ -551,7 +551,7 @@ public class SongListPanel extends JScrollPane {
 
 	}
 
-	// ÉèÖÃÁĞ±íÖĞµÄ¸èÇúÊı
+	// è®¾ç½®åˆ—è¡¨ä¸­çš„æ­Œæ›²æ•°
 	private void updateSongNumInList(DefaultMutableTreeNode node) {
 		String listName = (String) node.getUserObject();
 		listName = listName.substring(0, listName.lastIndexOf("[")) + "["
