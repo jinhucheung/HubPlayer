@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -31,13 +30,13 @@ import com.hubPlayer.player.HigherPlayer;
  */
 
 /**
- * netBean ¹¹½¨ ÀÖ¿âÃæ°å
+ * netBean æ„å»º ä¹åº“é¢æ¿
  * 
  * @date 2014-11-8
  */
 public class LibraryPanel extends JPanel {
 
-	/**
+    /**
 	 * Creates new form HubLibraryPanel
 	 */
 	public LibraryPanel() {
@@ -69,12 +68,12 @@ public class LibraryPanel extends JPanel {
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		aScrollPanel.setMaximumSize(new Dimension(615, 481));
 
-		// ÉèÖÃ20ĞĞ¿ÕÊı¾İ
+		// è®¾ç½®20è¡Œç©ºæ•°æ®
 		dataTable.setModel(libraryTableModel);
 		libraryTableModel.setLibraryOperation(libraryOperation);
 
-		// ¶¨Òå"²Ù×÷À¸"µÄäÖÈ¾Æ÷ ÏÔÊ¾°´Å¥
-		dataTable.getColumn("²Ù×÷").setCellRenderer(
+		// å®šä¹‰"æ“ä½œæ "çš„æ¸²æŸ“å™¨ æ˜¾ç¤ºæŒ‰é’®
+		dataTable.getColumn("æ“ä½œ").setCellRenderer(
 				new DefaultTableCellRenderer() {
 
 					@Override
@@ -87,8 +86,8 @@ public class LibraryPanel extends JPanel {
 										isSelected, hasFocus, row, column);
 					}
 				});
-		// ¶¨Òå"²Ù×÷À¸"µÄ±à¼­Æ÷ ÏìÓ¦°´Å¥ÊÂ¼ş
-		dataTable.getColumn("²Ù×÷").setCellEditor(new CellEditor());
+		// å®šä¹‰"æ“ä½œæ "çš„ç¼–è¾‘å™¨ å“åº”æŒ‰é’®äº‹ä»¶
+		dataTable.getColumn("æ“ä½œ").setCellEditor(new CellEditor());
 
 		dataTable.setColumnSelectionAllowed(true);
 		dataTable.setRowHeight(23);
@@ -102,7 +101,7 @@ public class LibraryPanel extends JPanel {
 		aToolBar.setRollover(true);
 		aToolBar.setOpaque(false);
 
-		moreSearch.setText("¸ü¶àÊı¾İ");
+		moreSearch.setText("æ›´å¤šæ•°æ®");
 		moreSearch.setFocusable(false);
 		moreSearch.setHorizontalTextPosition(SwingConstants.CENTER);
 		moreSearch.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -118,7 +117,7 @@ public class LibraryPanel extends JPanel {
 
 	}// </editor-fold>
 
-	// ´«¸øËÑË÷Ãæ°å,ÓÃÒÔÕ¹Ê¾ËÑË÷½á¹û
+	// ä¼ ç»™æœç´¢é¢æ¿,ç”¨ä»¥å±•ç¤ºæœç´¢ç»“æœ
 	public LibraryTableModel getLibraryTableModel() {
 		return libraryTableModel;
 	}
@@ -160,13 +159,13 @@ class CellEditor extends AbstractCellEditor implements TableCellEditor {
 
 	private JPanel panel;
 
-	// µ±µ¥Ôª¸ñ´Ó±à¼­×´Ì¬ÍË³öÊ±,µ÷ÓÃ´Ë·½·¨,½«´Ëµ¥ÔªäÖÈ¾Æ÷µÄvalueÉèÎªÕâ¸öObject,¼´ÏÔÊ¾Õâ¸öObject
+	// å½“å•å…ƒæ ¼ä»ç¼–è¾‘çŠ¶æ€é€€å‡ºæ—¶,è°ƒç”¨æ­¤æ–¹æ³•,å°†æ­¤å•å…ƒæ¸²æŸ“å™¨çš„valueè®¾ä¸ºè¿™ä¸ªObject,å³æ˜¾ç¤ºè¿™ä¸ªObject
 	@Override
 	public Object getCellEditorValue() {
 		return panel;
 	}
 
-	// µ±ĞèÒª±à¼­µ¥Ôª¸ñÊ±,µ÷ÓÃ´Ë·½·¨,±à¼­µÄÊÇ·µ»ØµÄ×é¼ş¶ÔÏó
+	// å½“éœ€è¦ç¼–è¾‘å•å…ƒæ ¼æ—¶,è°ƒç”¨æ­¤æ–¹æ³•,ç¼–è¾‘çš„æ˜¯è¿”å›çš„ç»„ä»¶å¯¹è±¡
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int column) {
