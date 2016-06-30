@@ -11,7 +11,7 @@ import com.hubPlayer.expansion.game_snake.MySnake;
 import view.ChessFrame;
 
 /**
- * ÍØÕ¹¹¦ÄÜÃæ°å£¬Îª²¥·ÅÆ÷Ôö¼ÓÒ»Ğ©ÓÎÏ·³ÌĞò
+ * æ‹“å±•åŠŸèƒ½é¢æ¿ï¼Œä¸ºæ’­æ”¾å™¨å¢åŠ ä¸€äº›æ¸¸æˆç¨‹åº
  * 
  * @date 2014-10-13
  *
@@ -19,7 +19,7 @@ import view.ChessFrame;
 
 public class AppPanel extends JPanel {
 
-	private JButton game2048;
+    private JButton game2048;
 	private JButton gameSnake;
 	private JButton gameGobang;
 
@@ -40,10 +40,10 @@ public class AppPanel extends JPanel {
 		game2048 = new IconButton("2048", "icon/item.png");
 		add(game2048);
 
-		gameSnake = new IconButton("Ì°³ÔÉß", "icon/item.png");
+		gameSnake = new IconButton("è´ªåƒè›‡", "icon/item.png");
 		add(gameSnake);
 
-		gameGobang = new IconButton("ÍøÂçÎå×ÓÆå", "icon/item.png");
+		gameGobang = new IconButton("ç½‘ç»œäº”å­æ£‹", "icon/item.png");
 		add(gameGobang);
 
 		add(new IconButton(null, "icon/item.png"));
