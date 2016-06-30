@@ -18,7 +18,6 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -32,31 +31,31 @@ import org.jaudiotagger.tag.TagException;
 import com.hubPlayer.ui.tool.TimeProgressBar;
 
 /**
- * µ×²ã²¥·ÅÆ÷£¬Ö÷Òª¿ØÖÆ²¥·Å
+ * åº•å±‚æ’­æ”¾å™¨ï¼Œä¸»è¦æ§åˆ¶æ’­æ”¾
  * 
  * @date 2014-10-18
  */
 
 public class BasicPlayer {
 
-	public SourceDataLine sourceDataLine;
+    public SourceDataLine sourceDataLine;
 	private AudioInputStream audioInputStream;
 	public URL audio;
 	public boolean HTTPFlag;
 
 	public Thread playThread;
 
-	public boolean IsPause = true;// ÊÇ·ñÍ£Ö¹²¥·Å×´Ì¬
-	public boolean NeedContinue;// µ±²¥·ÅÍ¬Ò»Ê×¸èÇú ÊÇ·ñ¼ÌĞø²¥·Å×´Ì¬
+	public boolean IsPause = true;// æ˜¯å¦åœæ­¢æ’­æ”¾çŠ¶æ€
+	public boolean NeedContinue;// å½“æ’­æ”¾åŒä¸€é¦–æ­Œæ›² æ˜¯å¦ç»§ç»­æ’­æ”¾çŠ¶æ€
 	public boolean IsComplete;
 	public boolean IsEnd;
 
-	// ¼ì²âÊäÈëÁ÷ÊÇ·ñ×èÈû
+	// æ£€æµ‹è¾“å…¥æµæ˜¯å¦é˜»å¡
 	private boolean IsChoke;
 
 	private Timer checkConnection;
 
-	// ÒôÁ¿¿ØÖÆ
+	// éŸ³é‡æ§åˆ¶
 	private FloatControl floatVoiceControl;
 	public TimeProgressBar timerProgressBar;
 
@@ -64,7 +63,7 @@ public class BasicPlayer {
 
 		try {
 
-			// »ñÈ¡ÍøÂçÒôÆµÊäÈëÁ÷
+			// è·å–ç½‘ç»œéŸ³é¢‘è¾“å…¥æµ
 			if (HTTPFlag) {
 
 				try {
@@ -74,17 +73,17 @@ public class BasicPlayer {
 					audioInputStream = AudioSystem
 							.getAudioInputStream(urlConnection.getInputStream());
 
-					// ÓÃ¼ÆÊ±Æ÷¼à²â¸èÇúÁ¬½Ó×´Ì¬ ³õÊ¼Æô¶¯¼ÆÊ±Æ÷
+					// ç”¨è®¡æ—¶å™¨ç›‘æµ‹æ­Œæ›²è¿æ¥çŠ¶æ€ åˆå§‹å¯åŠ¨è®¡æ—¶å™¨
 					checkConnectionSchedule();
 					
 
 				} catch (ConnectException e) {
 
-					// ½ø¶ÈÌõÇåÁã
+					// è¿›åº¦æ¡æ¸…é›¶
 					timerProgressBar.cleanTimer();
 
-					// Á¬½Ó³¬Ê±
-					JOptionPane.showMessageDialog(null, "ÍøÂç×ÊÔ´Á¬½ÓÒì³£", "",
+					// è¿æ¥è¶…æ—¶
+					JOptionPane.showMessageDialog(null, "ç½‘ç»œèµ„æºè¿æ¥å¼‚å¸¸", "",
 							JOptionPane.PLAIN_MESSAGE);
 
 					return;
@@ -94,12 +93,12 @@ public class BasicPlayer {
 
 			//
 			else
-				// »ñÈ¡±¾µØÒôÆµÊäÈëÁ÷
+				// è·å–æœ¬åœ°éŸ³é¢‘è¾“å…¥æµ
 				audioInputStream = AudioSystem.getAudioInputStream(audio);
 
-			// »ñÈ¡ÒôÆµ±àÂë¸ñÊ½
+			// è·å–éŸ³é¢‘ç¼–ç æ ¼å¼
 			AudioFormat audioFormat = audioInputStream.getFormat();
-			// MPEG1L3×ªPCM_SIGNED
+			// MPEG1L3è½¬PCM_SIGNED
 			if (audioFormat.getEncoding() != AudioFormat.Encoding.PCM_SIGNED) {
 				audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
 						audioFormat.getSampleRate(), 16,
@@ -110,22 +109,22 @@ public class BasicPlayer {
 						audioInputStream);
 			}
 
-			// ¸ù¾İÉÏÃæµÄÒôÆµ¸ñÊ½»ñÈ¡Êä³öÉè±¸ĞÅÏ¢
+			// æ ¹æ®ä¸Šé¢çš„éŸ³é¢‘æ ¼å¼è·å–è¾“å‡ºè®¾å¤‡ä¿¡æ¯
 			DataLine.Info info = new Info(SourceDataLine.class, audioFormat);
-			// »ñÈ¡Êä³öÉè±¸¶ÔÏó
+			// è·å–è¾“å‡ºè®¾å¤‡å¯¹è±¡
 			sourceDataLine = (SourceDataLine) AudioSystem.getLine(info);
 
-			// ´ò¿ªÊä³ö¹ÜµÀ
+			// æ‰“å¼€è¾“å‡ºç®¡é“
 			sourceDataLine.open();
-			// ÔÊĞí´Ë¹ÜµÀÖ´ĞĞÊı¾İ I/O
+			// å…è®¸æ­¤ç®¡é“æ‰§è¡Œæ•°æ® I/O
 			sourceDataLine.start();
 
-			// »ñÈ¡×ÜÒôÁ¿µÄ¿Ø¼ş
+			// è·å–æ€»éŸ³é‡çš„æ§ä»¶
 			floatVoiceControl = (FloatControl) sourceDataLine
 					.getControl(FloatControl.Type.MASTER_GAIN);
 
-			// ÒôÁ¿minValue -80 maxValue 6
-			// ÉèºÏÊÊµÄ³õÊ¼ÒôÁ¿
+			// éŸ³é‡minValue -80 maxValue 6
+			// è®¾åˆé€‚çš„åˆå§‹éŸ³é‡
 			floatVoiceControl.setValue(-20);
 
 			byte[] buf = new byte[1024];
@@ -133,26 +132,26 @@ public class BasicPlayer {
 
 			while ((onceReadDataSize = audioInputStream
 					.read(buf, 0, buf.length)) != -1) {
-				// ÊäÈëÁ÷Ã»ÓĞ×èÈû
+				// è¾“å…¥æµæ²¡æœ‰é˜»å¡
 				IsChoke = false;
 
 				if (IsEnd) {
 					return;
 				}
 
-				// ÊÇ·ñÔİÍ£
+				// æ˜¯å¦æš‚åœ
 				if (IsPause)
 					pause();
 
-				// ½«Êı¾İĞ´Èë»ìÆµÆ÷ÖĞ ÖÁÊä³ö¶Ë¿ÚĞ´ÍêÇ°×èÈû
+				// å°†æ•°æ®å†™å…¥æ··é¢‘å™¨ä¸­ è‡³è¾“å‡ºç«¯å£å†™å®Œå‰é˜»å¡
 				sourceDataLine.write(buf, 0, onceReadDataSize);
 
-				// Ô¤ÉèÊäÈëÁ÷×èÈû
+				// é¢„è®¾è¾“å…¥æµé˜»å¡
 				IsChoke = true;
 			}
 
 			IsChoke = false;
-			// ³åË¢»º³åÇøÊı¾İ
+			// å†²åˆ·ç¼“å†²åŒºæ•°æ®
 			sourceDataLine.drain();
 
 			sourceDataLine.close();
@@ -183,7 +182,7 @@ public class BasicPlayer {
 
 		checkConnection.schedule(new TimerTask() {
 
-			// ×èÈû¼ÆÊı
+			// é˜»å¡è®¡æ•°
 			int times = 0;
 
 			@Override
@@ -192,20 +191,20 @@ public class BasicPlayer {
 				if (IsChoke) {
 					times++;
 
-					// Èç¹û¼ì²âµ½×èÈû´ÎÊıÓĞ20´Î
+					// å¦‚æœæ£€æµ‹åˆ°é˜»å¡æ¬¡æ•°æœ‰20æ¬¡
 					if (times == 20) {
 						try {
 
-							// ½ø¶ÈÌõÇåÁã
+							// è¿›åº¦æ¡æ¸…é›¶
 							timerProgressBar.cleanTimer();
 
-							// Ê¹playThread×ÔÈ»Ö´ĞĞÍê
+							// ä½¿playThreadè‡ªç„¶æ‰§è¡Œå®Œ
 							IsEnd = false;
 
-							// ÊäÈëÁ÷¹Ø±Õ
+							// è¾“å…¥æµå…³é—­
 							audioInputStream.close();
 
-							JOptionPane.showMessageDialog(null, "Á¬½ÓÒì³£ÖĞ¶Ï", "",
+							JOptionPane.showMessageDialog(null, "è¿æ¥å¼‚å¸¸ä¸­æ–­", "",
 									JOptionPane.PLAIN_MESSAGE);
 
 						} catch (Exception e) {
@@ -247,14 +246,14 @@ public class BasicPlayer {
 			IsComplete = false;
 			IsEnd = true;
 
-			// ¹Ø±Õµ±Ç°Êı¾İÊäÈë¹ÜµÀ
+			// å…³é—­å½“å‰æ•°æ®è¾“å…¥ç®¡é“
 			sourceDataLine.close();
 			audioInputStream.close();
 
 			playThread = null;
 
 		} catch (Exception e) {
-			System.out.println("ÖĞ¶Ï²¥·Åµ±Ç°¸èÇú");
+			System.out.println("ä¸­æ–­æ’­æ”¾å½“å‰æ­Œæ›²");
 			IsPause = true;
 			NeedContinue = false;
 			IsComplete = false;
@@ -263,16 +262,16 @@ public class BasicPlayer {
 
 	}
 
-	// »ñÈ¡ÒôÆµÎÄ¼şµÄ³¤¶È ÃëÊı
+	// è·å–éŸ³é¢‘æ–‡ä»¶çš„é•¿åº¦ ç§’æ•°
 	public int getAudioTrackLength(URL url) {
 		try {
 
-			// Ö»ÄÜ»ñµÃ±¾µØ¸èÇúÎÄ¼şµÄĞÅÏ¢
+			// åªèƒ½è·å¾—æœ¬åœ°æ­Œæ›²æ–‡ä»¶çš„ä¿¡æ¯
 			AudioFile file = AudioFileIO.read(new File(url.toURI()));
 
-			// »ñÈ¡ÒôÆµÎÄ¼şµÄÍ·ĞÅÏ¢
+			// è·å–éŸ³é¢‘æ–‡ä»¶çš„å¤´ä¿¡æ¯
 			AudioHeader audioHeader = file.getAudioHeader();
-			// ÎÄ¼ş³¤¶È ×ª»»³ÉÊ±¼ä
+			// æ–‡ä»¶é•¿åº¦ è½¬æ¢æˆæ—¶é—´
 			return audioHeader.getTrackLength();
 		} catch (CannotReadException | IOException | TagException
 				| ReadOnlyFileException | InvalidAudioFrameException
