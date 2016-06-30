@@ -5,14 +5,14 @@ import java.io.FileFilter;
 import java.util.StringTokenizer;
 
 /**
- * AFilter ¹ıÂËÆ÷  ¸èÇúÀàĞÍ MP3 WAV MID ¸è´ÊÀàĞÍ LRC
+ * AFilter è¿‡æ»¤å™¨  æ­Œæ›²ç±»å‹ MP3 WAV MID æ­Œè¯ç±»å‹ LRC
  * 
  * @date 2014-10-15
  */
 
 public class AFilter implements FileFilter {
 
-	private String description;
+    private String description;
 
 	public AFilter(String description) {
 		this.description = description;
