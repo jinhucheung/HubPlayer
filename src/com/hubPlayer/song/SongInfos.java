@@ -3,33 +3,47 @@ package com.hubPlayer.song;
 import java.io.Serializable;
 
 /**
- * ÍøÂçÅÀÈ¡µÃ ¸èÇúĞÅÏ¢:¸èÇúÃû¡¢¸èÊÖ¡¢×¨¼­¡¢²¥·ÅÊ±¼ä¡¢¸è´ÊµØÖ·¡¢×ÊÔ´µØÖ·
+ * ç½‘ç»œçˆ¬å–å¾— æ­Œæ›²ä¿¡æ¯:æ­Œæ›²åã€æ­Œæ‰‹ã€ä¸“è¾‘ã€æ’­æ”¾æ—¶é—´ã€æ­Œè¯åœ°å€ã€èµ„æºåœ°å€
  * 
  * @date 2014-11-06
  */
 
-public class SongInfos implements Serializable{
+public class SongInfos implements Serializable {
 
-	private String song;
+    private String song;
 	private String singer;
 	private String album;
 
-	// Ê±¼ä=ÎÄ¼ş³¤¶È/±ÈÌØÂÊ*8
+	// æ—¶é—´=æ–‡ä»¶é•¿åº¦/æ¯”ç‰¹ç‡*8
 	private int totalTime;
 	private int dataSize;
 
 	private String songDataUrl;
 	private String lrcUrl;
 
-	// ´ó¸ÅµÄ±ÈÌØÂÊ
+	// å¤§æ¦‚çš„æ¯”ç‰¹ç‡
 	private int bitRate;
 
 	public SongInfos(String song) {
 		this.song = song;
 		totalTime = 0;
 		lrcUrl = "";
-
 		bitRate = 128000;
+	}
+
+	public boolean equals(Object object) {
+		if (this == object)
+			return true;
+		if (getClass() != object.getClass())
+			return false;
+		SongInfos objectSongInfos = (SongInfos) object;
+
+		if (songDataUrl == null)
+			return song.equals(objectSongInfos.getSong())
+					&& singer.equals(objectSongInfos.getSinger())
+					&& album.equals(objectSongInfos.getAlbum());
+
+		return songDataUrl.equals(objectSongInfos.getSongDataUrl());
 	}
 
 	public SongInfos(String song, String singer) {
@@ -117,18 +131,4 @@ public class SongInfos implements Serializable{
 				+ "\ndownload URL: " + songDataUrl;
 	}
 
-	public boolean equals(Object object) {
-		if (this == object)
-			return true;
-		if (getClass() != object.getClass())
-			return false;
-		SongInfos objectSongInfos = (SongInfos) object;
-
-		if (songDataUrl == null)
-			return song.equals(objectSongInfos.getSong())
-					&& singer.equals(objectSongInfos.getSinger())
-					&& album.equals(objectSongInfos.getAlbum());
-
-		return songDataUrl.equals(objectSongInfos.getSongDataUrl());
-	}
 }
