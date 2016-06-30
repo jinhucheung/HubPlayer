@@ -12,21 +12,21 @@ import org.jvnet.substance.SubstanceLookAndFeel;
 import com.hubPlayer.ui.HubFrame;
 
 /**
- * ÒÔ¿á¹·ÒôÀÖ²¥·ÅÆ÷µÄÓÃ»§½çÃæÎªÔ­ĞÍ£¬ÖÆ×÷µÄÒ»¸ö»ùÓÚJava Sound£¬ÊµÏÖ²¥·Å¡¢ËÑË÷¡¢ÏÂÔØµÄÒôÀÖ²¥·ÅÆ÷£¬Ö§³ÖµÄÒôÀÖ¸ñÊ½Ö»ÓĞWAV¡¢MP3¡¢MID¡£
+ * ä»¥é…·ç‹—éŸ³ä¹æ’­æ”¾å™¨çš„ç”¨æˆ·ç•Œé¢ä¸ºåŸå‹ï¼Œåˆ¶ä½œçš„ä¸€ä¸ªåŸºäºJava Soundï¼Œå®ç°æ’­æ”¾ã€æœç´¢ã€ä¸‹è½½çš„éŸ³ä¹æ’­æ”¾å™¨ï¼Œæ”¯æŒçš„éŸ³ä¹æ ¼å¼åªæœ‰WAVã€MP3ã€MIDã€‚
  *
  */
 
 public class Main {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
 		try {
-			// ÉèÖÃ¹Û¸Ğ
+			// è®¾ç½®è§‚æ„Ÿ
 			UIManager
 					.setLookAndFeel("org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel");
-			// ÉèÖÃË®Ó¡
+			// è®¾ç½®æ°´å°
 			SubstanceLookAndFeel
 					.setCurrentWatermark("org.jvnet.substance.watermark.SubstanceMosaicWatermark");
-			// ÉèÖÃ½¥±ääÖÈ¾
+			// è®¾ç½®æ¸å˜æ¸²æŸ“
 			SubstanceLookAndFeel
 					.setCurrentGradientPainter("org.jvnet.substance.painter.WaveGradientPainter");
 
