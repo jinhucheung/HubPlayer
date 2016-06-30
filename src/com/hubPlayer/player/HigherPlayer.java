@@ -16,22 +16,22 @@ import com.hubPlayer.song.SongNode;
 import com.hubPlayer.ui.tool.TimeProgressBar;
 
 /**
- * ¸ß²ã²¥·ÅÆ÷ Ö÷Òª¿ØÖÆÓëÍâ²¿ĞÅÏ¢½»»¥
+ * é«˜å±‚æ’­æ”¾å™¨ ä¸»è¦æ§åˆ¶ä¸å¤–éƒ¨ä¿¡æ¯äº¤äº’
  * 
  * @date 2014-10-18
  */
 
 public class HigherPlayer extends BasicPlayer {
 
-	private JTree tree;
+    private JTree tree;
 
 	private SongNode loadSong;
 	private SongNode playingSong;
 
-	private String loadSongName;// ÓëloadSong¶ÔÓ¦
-	private String playingSongName;// ÓëplayedSong¶ÔÓ¦
+	private String loadSongName;// ä¸loadSongå¯¹åº”
+	private String playingSongName;// ä¸playedSongå¯¹åº”
 
-	// µ±Ç°²¥·Å¸èÇúËùÔÚµÄÄ¿Â¼
+	// å½“å‰æ’­æ”¾æ­Œæ›²æ‰€åœ¨çš„ç›®å½•
 	private TreePath currentListPath;
 
 	private JButton play;
@@ -39,17 +39,17 @@ public class HigherPlayer extends BasicPlayer {
 	private JLabel songNameLabel;
 	private JLabel audioTotalTimeLabel;
 
-	// ²¥·ÅÄ£Ê½
+	// æ’­æ”¾æ¨¡å¼
 	public int mode;
 	public boolean IsPlayNextSong;
 
-	// µ±Ç°ÒôÆµµÄ×ÜÊ±¼ä
+	// å½“å‰éŸ³é¢‘çš„æ€»æ—¶é—´
 	public int audioTotalTime;
 
 	public HigherPlayer() {
 	}
 
-	// ±¾µØ×ÊÔ´
+	// æœ¬åœ°èµ„æº
 	public void load(TreeNode node) {
 		this.loadSong = (SongNode) node;
 		DefaultMutableTreeNode mutablenode = (DefaultMutableTreeNode) node;
@@ -63,12 +63,12 @@ public class HigherPlayer extends BasicPlayer {
 		}
 	}
 
-	// ÍøÂç×ÊÔ´
+	// ç½‘ç»œèµ„æº
 	public void load(SongNode song, String dataURL) {
 		try {
 
 			if (dataURL==null || dataURL.length() == 0) {
-				JOptionPane.showMessageDialog(null, "Ã»ÓĞÕÒµ½¸èÇú×ÊÔ´Á´½ÓµØÖ·", "",
+				JOptionPane.showMessageDialog(null, "æ²¡æœ‰æ‰¾åˆ°æ­Œæ›²èµ„æºé“¾æ¥åœ°å€", "",
 						JOptionPane.PLAIN_MESSAGE);
 				loadSongName = null;
 				return;
@@ -89,27 +89,27 @@ public class HigherPlayer extends BasicPlayer {
 
 		IsComplete = false;
 
-		// ÍøÂç×ÊÔ´²¥·ÅÊ±¼ä
+		// ç½‘ç»œèµ„æºæ’­æ”¾æ—¶é—´
 		if (playingSong.getHTTPFlag())
 			audioTotalTime = playingSong.getTotalTime();
-		// ±¾µØ×ÊÔ´²¥·ÅÊ±¼ä
+		// æœ¬åœ°èµ„æºæ’­æ”¾æ—¶é—´
 		else
 			audioTotalTime = getAudioTrackLength(audio);
 
 		audioTotalTimeLabel.setText(getAudioTotalTime(audioTotalTime));
 
-		// ÖØÖÃ¼ÆÊ±Æ÷
+		// é‡ç½®è®¡æ—¶å™¨
 		timerProgressBar.cleanTimer();
 
-		// Æô¶¯ĞÂµÄ¼ÆÊ±Æ÷
+		// å¯åŠ¨æ–°çš„è®¡æ—¶å™¨
 		timerProgressBar.setAudioTotalTime(audioTotalTime);
 		timerProgressBar.setCurrentPlayedSongLrcInfo(playingSong.getLrcInfo());
 
 		timerProgressBar.startTimer();
 
-		// ÒòÎªÒªÓë²¥·ÅÃæ°å½»»¥ ËùÒÔÈÃ¼àÌı¸èÇú×´Ì¬µÄÏß³ÌÔÚ¸ß²ã²¥·ÅÆ÷³õÊ¼»¯
+		// å› ä¸ºè¦ä¸æ’­æ”¾é¢æ¿äº¤äº’ æ‰€ä»¥è®©ç›‘å¬æ­Œæ›²çŠ¶æ€çš„çº¿ç¨‹åœ¨é«˜å±‚æ’­æ”¾å™¨åˆå§‹åŒ–
 		playThread = new Thread(() -> {
-			// ²¥·Å½áÊøÇ°, Ïß³ÌÔÚ´Ë×èÈû ²»ÄÜ½âÂëµÄ¸èÇú Õâ²»×èÈû
+			// æ’­æ”¾ç»“æŸå‰, çº¿ç¨‹åœ¨æ­¤é˜»å¡ ä¸èƒ½è§£ç çš„æ­Œæ›² è¿™ä¸é˜»å¡
 				super.play();
 
 				if (IsEnd) {
@@ -117,10 +117,10 @@ public class HigherPlayer extends BasicPlayer {
 					return;
 				}
 
-				// ²¥·Å½áÊø play°´Å¥ÏÔÊ¾"²¥·Å"×´Ì¬
+				// æ’­æ”¾ç»“æŸ playæŒ‰é’®æ˜¾ç¤º"æ’­æ”¾"çŠ¶æ€
 				play.doClick();
 
-				// ²¥·ÅÄ£Ê½¾ö¶¨½Ó×Å½øĞĞµØ²¥·Å
+				// æ’­æ”¾æ¨¡å¼å†³å®šæ¥ç€è¿›è¡Œåœ°æ’­æ”¾
 				playSwitch();
 			});
 		playThread.start();
@@ -130,27 +130,27 @@ public class HigherPlayer extends BasicPlayer {
 	private void playSwitch() {
 
 		IsComplete = true;
-		// ³õÊ¼»¯²¥·Å×´Ì¬
+		// åˆå§‹åŒ–æ’­æ”¾çŠ¶æ€
 		switch (mode) {
-		// µ¥Çú²¥·Å
+		// å•æ›²æ’­æ”¾
 		case 0:
 			return;
-			// µ¥ÇúÑ­»·
+			// å•æ›²å¾ªç¯
 		case 1:
 			break;
 
-		// Ë³Ğò²¥·Å µ±´¥·¢²¥·Å°´Å¥Ê±,ÒòÎªÒª²¥·ÅĞÂ¸èÇú ËùÒÔ½øÈë
+		// é¡ºåºæ’­æ”¾ å½“è§¦å‘æ’­æ”¾æŒ‰é’®æ—¶,å› ä¸ºè¦æ’­æ”¾æ–°æ­Œæ›² æ‰€ä»¥è¿›å…¥
 		// if(!player.getAfterSong().equals(player.getCurrentSong())) {}
-		// Ê¹µÃµ±Ç°Ïß³Ì±»ÖÕÖ¹,ÍùÏÂµÄ²¥·Å²Ù×÷±»ÖÕÖ¹
+		// ä½¿å¾—å½“å‰çº¿ç¨‹è¢«ç»ˆæ­¢,å¾€ä¸‹çš„æ’­æ”¾æ“ä½œè¢«ç»ˆæ­¢
 		case 2:
 			IsPlayNextSong = true;
 			next();
 			break;
-		// ÁĞ±í²¥·Å Çé¿öÍ¬Ë³Ğò²¥·Å
+		// åˆ—è¡¨æ’­æ”¾ æƒ…å†µåŒé¡ºåºæ’­æ”¾
 		case 3:
 			cycle();
 			break;
-		// Ëæ»ú²¥·Å Çé¿öÍ¬Ë³Ğò²¥·Å
+		// éšæœºæ’­æ”¾ æƒ…å†µåŒé¡ºåºæ’­æ”¾
 		case 4:
 			random();
 			break;
@@ -159,7 +159,7 @@ public class HigherPlayer extends BasicPlayer {
 		play.doClick();
 	}
 
-	// ½Ó×Å½øĞĞµØ²¥·Å
+	// æ¥ç€è¿›è¡Œåœ°æ’­æ”¾
 	public void next() {
 		DefaultMutableTreeNode list = (DefaultMutableTreeNode) playingSong
 				.getParent();
@@ -176,7 +176,7 @@ public class HigherPlayer extends BasicPlayer {
 
 			return;
 		}
-		// ÔÚµ±Ç°ËùÔÚµÄ¸èÇúÁĞ±íÂ·¾¶ÖĞ¼ÓÈë´ı²¥·ÅµÄ¸èÇú ĞÎ³É´ı²¥·Å¸èÇúµÄÂ·¾¶
+		// åœ¨å½“å‰æ‰€åœ¨çš„æ­Œæ›²åˆ—è¡¨è·¯å¾„ä¸­åŠ å…¥å¾…æ’­æ”¾çš„æ­Œæ›² å½¢æˆå¾…æ’­æ”¾æ­Œæ›²çš„è·¯å¾„
 		TreePath songPath = currentListPath.pathByAddingChild(songNode);
 		tree.setSelectionPath(songPath);
 
@@ -186,7 +186,7 @@ public class HigherPlayer extends BasicPlayer {
 			load(songNode);
 	}
 
-	// ÁĞ±íÑ­»·²¥·Å
+	// åˆ—è¡¨å¾ªç¯æ’­æ”¾
 	private void cycle() {
 		DefaultMutableTreeNode list = (DefaultMutableTreeNode) playingSong
 				.getParent();
@@ -198,7 +198,7 @@ public class HigherPlayer extends BasicPlayer {
 			songNode = (SongNode) list.getFirstChild();
 		}
 
-		// ÔÚµ±Ç°ËùÔÚµÄ¸èÇúÁĞ±íÂ·¾¶ÖĞ¼ÓÈë´ı²¥·ÅµÄ¸èÇú ĞÎ³É´ı²¥·Å¸èÇúµÄÂ·¾¶
+		// åœ¨å½“å‰æ‰€åœ¨çš„æ­Œæ›²åˆ—è¡¨è·¯å¾„ä¸­åŠ å…¥å¾…æ’­æ”¾çš„æ­Œæ›² å½¢æˆå¾…æ’­æ”¾æ­Œæ›²çš„è·¯å¾„
 		TreePath songPath = currentListPath.pathByAddingChild(songNode);
 		tree.setSelectionPath(songPath);
 
@@ -209,19 +209,19 @@ public class HigherPlayer extends BasicPlayer {
 
 	}
 
-	// Ëæ»ú²¥·Å
+	// éšæœºæ’­æ”¾
 	private void random() {
 		DefaultMutableTreeNode list = (DefaultMutableTreeNode) playingSong
 				.getParent();
 		int songnum = list.getChildCount();
 
-		// Ëæ»ú¸èÇú
+		// éšæœºæ­Œæ›²
 		int songindex = (int) Math.round(Math.random() * songnum) - 1;
 		if (songindex < 0)
 			songindex = 0;
 
 		SongNode songNode = (SongNode) list.getChildAt(songindex);
-		// ÔÚµ±Ç°ËùÔÚµÄ¸èÇúÁĞ±íÂ·¾¶ÖĞ¼ÓÈë´ı²¥·ÅµÄ¸èÇú ĞÎ³É´ı²¥·Å¸èÇúµÄÂ·¾¶
+		// åœ¨å½“å‰æ‰€åœ¨çš„æ­Œæ›²åˆ—è¡¨è·¯å¾„ä¸­åŠ å…¥å¾…æ’­æ”¾çš„æ­Œæ›² å½¢æˆå¾…æ’­æ”¾æ­Œæ›²çš„è·¯å¾„
 		TreePath songPath = currentListPath.pathByAddingChild(songNode);
 		tree.setSelectionPath(songPath);
 
@@ -232,7 +232,7 @@ public class HigherPlayer extends BasicPlayer {
 
 	}
 
-	// Ìá¹©ÍøÂç×ÊÔ´¼ÓÈëÁĞ±í¼°²¥·ÅµÄ½Ó¿Ú
+	// æä¾›ç½‘ç»œèµ„æºåŠ å…¥åˆ—è¡¨åŠæ’­æ”¾çš„æ¥å£
 	public void setSelectTreeNodeInCurrentList(SongNode songNode, String dataURL) {
 
 		TreePath songPath = currentListPath.pathByAddingChild(songNode);
