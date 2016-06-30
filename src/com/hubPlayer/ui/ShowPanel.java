@@ -15,7 +15,7 @@ import com.hubPlayer.player.HigherPlayer;
 import com.hubPlayer.ui.tool.LibraryPanel;
 
 /**
- * Õ¹Ê¾Ãæ°å
+ * å±•ç¤ºé¢æ¿
  * 
  * @date 2014-10-26
  *
@@ -23,13 +23,13 @@ import com.hubPlayer.ui.tool.LibraryPanel;
 
 public class ShowPanel extends JPanel {
 
-	private LibraryPanel libraryPanel;
+    private LibraryPanel libraryPanel;
 
-	// ¸è´ÊÃæ°åÏà¹Ø
+	// æ­Œè¯é¢æ¿ç›¸å…³
 	private JPanel lrcPanel;
 	private JTextArea textArea;
 
-	// ÆäËûÃæ°å
+	// å…¶ä»–é¢æ¿
 	private JScrollPane MVPanel;
 	private JScrollPane radioPanel;
 	private JScrollPane livePanel;
@@ -44,11 +44,11 @@ public class ShowPanel extends JPanel {
 	private void init() {
 		libraryPanel = new LibraryPanel();
 
-		// ¸è´ÊÃæ°å´¦Àí
+		// æ­Œè¯é¢æ¿å¤„ç†
 		lrcPanel = new JPanel(new GridLayout());
 		textArea = new JTextArea();
 
-		// ÎÄ±¾ÓòÉèÖÃ²»¿É±à¼­¡¢Í¸Ã÷¡¢×ó¼ä¾à¡¢×Ô¶¯»»ĞĞ
+		// æ–‡æœ¬åŸŸè®¾ç½®ä¸å¯ç¼–è¾‘ã€é€æ˜ã€å·¦é—´è·ã€è‡ªåŠ¨æ¢è¡Œ
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
 		textArea.setMargin(new Insets(0, 175, 0, 0));
@@ -57,10 +57,10 @@ public class ShowPanel extends JPanel {
 		textArea.setFont(new Font("PLAN", Font.PLAIN, 14));
 		lrcPanel.add(textArea);
 
-		// ÆäËûÃæ°å
+		// å…¶ä»–é¢æ¿
 		MVPanel = new JScrollPane(new JLabel("MV"));
-		radioPanel = new JScrollPane(new JLabel("µçÌ¨"));
-		livePanel = new JScrollPane(new JLabel("Ö±²¥"));
+		radioPanel = new JScrollPane(new JLabel("ç”µå°"));
+		livePanel = new JScrollPane(new JLabel("ç›´æ’­"));
 	}
 
 	private void createLayout() {
