@@ -12,14 +12,14 @@ import javax.swing.text.BadLocationException;
 import com.hubPlayer.song.LrcInfos;
 
 /**
- * ²¥·ÅÃæ°åµÄ½ø¶ÈÌõ£¬°ó¶¨Ò»¸ö¼ÆÊ±Æ÷ ¼ÆÊ±´òÓ¡¸è´Ê
+ * æ’­æ”¾é¢æ¿çš„è¿›åº¦æ¡ï¼Œç»‘å®šä¸€ä¸ªè®¡æ—¶å™¨ è®¡æ—¶æ‰“å°æ­Œè¯
  *
  * @date 2014-10-23
  */
 
 public class TimeProgressBar extends JProgressBar {
 
-	private boolean timerPause;
+    private boolean timerPause;
 	private int audioTotalTime;
 	private int counter;
 
@@ -32,7 +32,7 @@ public class TimeProgressBar extends JProgressBar {
 	private Map<Integer, String> lrcInfosMap;
 	private int nextLrcTime;
 
-	// ¸è´ÊÃæ°å
+	// æ­Œè¯é¢æ¿
 	private JTextArea textArea;
 
 	public TimeProgressBar() {
@@ -42,10 +42,10 @@ public class TimeProgressBar extends JProgressBar {
 
 	}
 
-	// Æô¶¯¼ÆÊ±Æ÷
+	// å¯åŠ¨è®¡æ—¶å™¨
 	public void startTimer() {
 
-		// ³õÊ¼ÏÔÊ¾23Ìõ¸è´Ê
+		// åˆå§‹æ˜¾ç¤º23æ¡æ­Œè¯
 		if (lrcInfosMap.size() != 0)
 			printNextLrcInTheTime(0, 23);
 
@@ -55,14 +55,14 @@ public class TimeProgressBar extends JProgressBar {
 
 	}
 
-	// ÖØÆô¼ÆÊ±Æ÷
+	// é‡å¯è®¡æ—¶å™¨
 	public void resumeTimer() {
 		synchronized (timer) {
 			timer.notify();
 		}
 	}
 
-	// ÖØÖÃ¼ÆÊ±Æ÷
+	// é‡ç½®è®¡æ—¶å™¨
 	public void cleanTimer() {
 		counter = 0;
 
@@ -102,7 +102,7 @@ public class TimeProgressBar extends JProgressBar {
 	}
 
 	/**
-	 * ´òÓ¡timeÊ±¼äºóµÄlineÌõ¸è´Ê audioTotalTimeµ±Ç°²¥·Å¸èÇúµÄÊ±³¤ nextLrcTimeËÑÑ°ÏÂÒ»Ìõ¸è´ÊµÄ¿ªÊ¼Ê±¼ä
+	 * æ‰“å°timeæ—¶é—´åçš„lineæ¡æ­Œè¯ audioTotalTimeå½“å‰æ’­æ”¾æ­Œæ›²çš„æ—¶é•¿ nextLrcTimeæœå¯»ä¸‹ä¸€æ¡æ­Œè¯çš„å¼€å§‹æ—¶é—´
 	 */
 
 	private void printNextLrcInTheTime(int time, int line) {
@@ -123,7 +123,7 @@ public class TimeProgressBar extends JProgressBar {
 		public void run() {
 			synchronized (timer) {
 				if (counter == audioTotalTime) {
-					// ÖÕÖ¹¼ÆÊıÆ÷ µ«µ±Ç°ÈÎÎñ»¹»á±»Ö´ĞĞ
+					// ç»ˆæ­¢è®¡æ•°å™¨ ä½†å½“å‰ä»»åŠ¡è¿˜ä¼šè¢«æ‰§è¡Œ
 					cleanTimer();
 					return;
 				}
@@ -142,13 +142,13 @@ public class TimeProgressBar extends JProgressBar {
 						String content = lrcInfosMap.get(counter);
 						if (content != null) {
 
-							// ¼ôÈ¥µÚÒ»ĞĞ¸è´Ê£¬Í¬Ê±ÕûÌåÉÏÒÆ
+							// å‰ªå»ç¬¬ä¸€è¡Œæ­Œè¯ï¼ŒåŒæ—¶æ•´ä½“ä¸Šç§»
 							textArea.select(textArea.getLineStartOffset(1),
 									textArea.getLineEndOffset(textArea
 											.getLineCount() - 1));
 							textArea.setText(textArea.getSelectedText());
 
-							// ÏÔÊ¾×îºóÒ»Ìõ¸è´ÊµÄÏÂÒ»Ìõ
+							// æ˜¾ç¤ºæœ€åä¸€æ¡æ­Œè¯çš„ä¸‹ä¸€æ¡
 							printNextLrcInTheTime(nextLrcTime, 1);
 						}
 					}
@@ -163,7 +163,7 @@ public class TimeProgressBar extends JProgressBar {
 			}
 		}
 
-		// ×ª»»Ê±¼ä
+		// è½¬æ¢æ—¶é—´
 		public String getCurrentTime(int sec) {
 			String time = "0:00";
 
