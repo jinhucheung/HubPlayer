@@ -4,7 +4,7 @@
 
 此音乐播放器支持音乐格式较少，只有MID、WMA、MP3。最后，为音乐播放器置入一些自己和同学写的游戏，增强了一点娱乐性。
 
-![image](http://git.oschina.net/JHuZhang/HubPlayer/raw/test/HubPlayer.jpg)
+![image](HubPlayer.jpg)
 
 ## 功能说明
 
